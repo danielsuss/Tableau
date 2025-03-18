@@ -1,0 +1,14 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "enables the default permissions",
+  "windows": [
+    "main",
+    "display"
+  ],
+  "permissions": [
+    "core:default",
+    "core:event:allow-listen",
+    "core:webview:allow-create-webview-window"
+  ]
+}

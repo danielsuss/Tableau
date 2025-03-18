@@ -1,0 +1,89 @@
+h1 {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+  color: #ffffff;
+  font-size: 2em;
+}
+
+.chapter-select {
+  text-align: center;
+  padding-top: 60px; /* Prevent overlap with h1 */
+}
+
+.chapters-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.chapter-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  padding: 20px;
+  background-color: transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* Change the mouse to the pointer hand */
+}
+
+.chapter-item:hover {
+  transform: scale(1.1); /* Slightly enlarge the entire chapter item */
+}
+
+.chapter-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.chapter-item p {
+  margin: 0;
+  font-size: 16px;
+  color: white; /* Ensure text is visible */
+}
+
+/* Add Chapter Button */
+.add-chapter {
+  cursor: pointer; /* Already here for the Add Chapter button */
+}
+
+.new-chapter-menu {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.new-chapter-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.new-chapter-controls p:hover {
+  cursor: pointer;
+  color: lightskyblue;
+}
+
+.new-chapter-input {
+  text-align: center;
+}
