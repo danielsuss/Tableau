@@ -1,11 +1,11 @@
-  .constructor-container {
+.constructor-container {
     position: relative;
-    width: 100vw;  /* Full viewport width */
+    width: 100vw; /* Full viewport width */
     height: 100vh; /* Full viewport height */
     overflow: hidden; /* Optional: Prevent scrolling if content exceeds the window */
-  }
+}
 
-  .nav-bar {
+.nav-bar {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -14,16 +14,16 @@
     height: 40px;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
-  }
+}
 
-  .divider {
+.divider {
     width: 0px;
     height: 99.7%;
     border: 1px solid white;
     margin-right: 3px;
-  }
+}
 
-  .elements {
+.elements {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -31,75 +31,75 @@
     align-items: flex-start;
     width: 100vw;
     height: 80vh;
-  }
+}
 
-  .element-item {
+.element-item {
     display: flex;
     justify-content: center;
     margin: 10px;
     transition: transform 0.3s ease;
     cursor: pointer; /* Change the mouse to the pointer hand */
     transform-origin: center;
-  }
+}
 
-  .element-item.landscape {
+.element-item.landscape {
     height: 79px;
-  }
+}
 
-  .element-item.add {
+.element-item.add {
     width: 140px;
-  }
+}
 
-  .element-item.splash {
+.element-item.splash {
     width: 77px;
-  }
+}
 
-  .element-item:hover {
-    transform: scale(1.2)
-  }
+.element-item:hover {
+    transform: scale(1.2);
+}
 
-  .element-item p {
+.element-item p {
     text-align: center;
     margin: 0;
     font-size: 10px;
     color: white;
-  }
+}
 
-  .element-item img {
+.element-item img {
     height: auto;
     width: 100%;
-  }
+}
 
-  .landscapes {
+.landscapes {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     justify-content: left;
-    width:50%;
+    width: 50%;
     /* border:1px solid white; */
-  }
-  
-  .add-element-container {
+}
+
+.add-element-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 70px;
     width: 70px;
-  }
+}
 
-  .splashes {
+.splashes {
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     justify-content: left;
-    width:50%;
+    width: 50%;
     /* border:1px solid white; */
-  }
+}
 
-  .combatbox {
+.combatbox {
     display: flex;
     flex-wrap: wrap;
     gap: 0;
@@ -107,35 +107,35 @@
     justify-content: left;
     width: 100vw;
     border-top: 1px solid white;
-  }
-  
-  .back-button-container {
+}
+
+.back-button-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
     width: 33%;
-  }
+}
 
-  /* Back button in the top left */
-  .back-button {
+/* Back button in the top left */
+.back-button {
     margin-top: 5px;
     margin-left: 5px;
     cursor: pointer;
-  }
-  
-  .back-icon {
+}
+
+.back-icon {
     width: 30px;
     height: 30px;
     transition: fill 0.3s ease; /* Use fill property for SVG color transition */
-  }
-  
-  .back-icon:hover {
+}
+
+.back-icon:hover {
     fill: grey; /* Change the SVG color on hover */
-  }
-  
-  /* Header container centered both horizontally and vertically */
-  .header-container {
+}
+
+/* Header container centered both horizontally and vertically */
+.header-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -144,15 +144,15 @@
     font-size: larger;
     color: #ffffff;
     cursor: defa;
-  }
-  
-  h1 {
+}
+
+h1 {
     margin: 0;
     font-size: 2em;
     color: #ffffff;
-  }
-  
-  .context-menu {
+}
+
+.context-menu {
     all: unset;
     display: flex;
     flex-direction: column;
@@ -165,24 +165,24 @@
     z-index: 9999; /* Make sure it's above other content */
     color: white;
     pointer-events: auto; /* Ensure the menu remains interactive */
-  }
-  
-  .context-menu p {
-    cursor: pointer;
-  }
-  
-  .context-menu p:hover {
-    color: lightskyblue;
-  }
+}
 
-  .battlemap-container {
+.context-menu p {
+    cursor: pointer;
+}
+
+.context-menu p:hover {
+    color: lightskyblue;
+}
+
+.battlemap-container {
     position: relative;
     width: 100vw;
     height: 120px;
     border: 1px solid white;
-  }
+}
 
-  .battlemap {
+.battlemap {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -191,35 +191,35 @@
     width: 50vw;
     height: 100%;
     border: 1px solid white;
-  }
+}
 
-  .battlemap-icon-container {
+.battlemap-icon-container {
     display: flex;
-    height: 100%;  /* Take up 100% of the height of its parent */
-    aspect-ratio: 1 / 1;  /* Make the width equal to the height */
+    height: 100%; /* Take up 100% of the height of its parent */
+    aspect-ratio: 1 / 1; /* Make the width equal to the height */
     /* border: 1px solid white; */
-    justify-content: center;  /* Center the image horizontally */
-    align-items: center;  /* Center the image vertically */
-    overflow: hidden;  /* Hide any overflow from the image */
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+    overflow: hidden; /* Hide any overflow from the image */
     margin-left: 10px;
     margin-right: 10px;
-  }
+}
 
-  .battlemap-icon {
-  max-width: 100%;  /* Ensure the image fits within the container width */
-  max-height: 100%;  /* Ensure the image fits within the container height */
-  height: auto;  /* Maintain aspect ratio */
-  width: auto;  /* Maintain aspect ratio */
-  }
+.battlemap-icon {
+    max-width: 100%; /* Ensure the image fits within the container width */
+    max-height: 100%; /* Ensure the image fits within the container height */
+    height: auto; /* Maintain aspect ratio */
+    width: auto; /* Maintain aspect ratio */
+}
 
-  .hexgrid-icon {
-    max-width: 90%;  /* Ensure the image fits within the container width */
-    max-height: 90%;  /* Ensure the image fits within the container height */
-    height: auto;  /* Maintain aspect ratio */
-    width: auto;  /* Maintain aspect ratio */
-  }
+.hexgrid-icon {
+    max-width: 90%; /* Ensure the image fits within the container width */
+    max-height: 90%; /* Ensure the image fits within the container height */
+    height: auto; /* Maintain aspect ratio */
+    width: auto; /* Maintain aspect ratio */
+}
 
-  .sliders-container {
+.sliders-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -227,9 +227,9 @@
     flex-grow: 1;
     height: 100%;
     border: 1px solid white;
-  }
+}
 
-  .slider {
+.slider {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -239,22 +239,22 @@
     width: 100%;
     border: 1px solid white;
     flex-grow: 1;
-  }
+}
 
-  .slider input {
+.slider input {
     cursor: pointer;
-  }
+}
 
-  .slider p {
+.slider p {
     cursor: default;
-  }
+}
 
-  .reset:hover {
+.reset:hover {
     color: lightskyblue;
     cursor: pointer;
-  }
+}
 
-  .hexgrid {
+.hexgrid {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -264,16 +264,16 @@
     width: 50vw;
     height: 100%;
     border: 1px solid white;
-  }
-  
-  .entities-container {
+}
+
+.entities-container {
     position: relative;
     width: 100vw;
     height: calc(100vh - 160px);
     border: 1px solid white;
-  }
+}
 
-  .icons {
+.icons {
     position: absolute;
     display: flex;
     flex-wrap: wrap;
@@ -283,61 +283,52 @@
     width: 50vw;
     /* border: 1px solid white; */
     row-gap: 20px;
-  }
+}
 
-  .entity-icon  {
+.entity-icon {
     height: 76px;
     width: auto;
     margin-top: 10px;
-  }
+}
 
-  .entity-container-clicked-false {
+.entity-container-clicked-false {
     transition: transform 0.1s ease;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100px;
-  }
+}
 
-  .entity-container-clicked-true {
+.entity-container-clicked-true {
     display: flex;
     align-items: center;
     justify-content: center;
     transform: scale(1.2);
     width: 100px;
-  }
+}
 
-  .entity-container-clicked-false:hover {
+.entity-container-clicked-false:hover {
     transform: scale(1.1);
-  }
+}
 
-  .allegiance-neutral {
-    -webkit-filter: drop-shadow(2px 2px 0 white)
-                    drop-shadow(-2px 2px 0 white)
-                    drop-shadow(2px -2px 0 white)
-                    drop-shadow(-2px -2px 0 white);
+.allegiance-neutral {
+    -webkit-filter: drop-shadow(2px 2px 0 white) drop-shadow(-2px 2px 0 white)
+        drop-shadow(2px -2px 0 white) drop-shadow(-2px -2px 0 white);
 
-    filter: drop-shadow(2px 2px 0 white)
-            drop-shadow(-2px 2px 0 white)
-            drop-shadow(2px -2px 0 white)
-            drop-shadow(-2px -2px 0 white);
-  }
+    filter: drop-shadow(2px 2px 0 white) drop-shadow(-2px 2px 0 white)
+        drop-shadow(2px -2px 0 white) drop-shadow(-2px -2px 0 white);
+}
 
-  .allegiance-evil {
-    -webkit-filter: drop-shadow(2px 2px 0 red)
-                    drop-shadow(-2px 2px 0 red)
-                    drop-shadow(2px -2px 0 red)
-                    drop-shadow(-2px -2px 0 red);
+.allegiance-evil {
+    -webkit-filter: drop-shadow(2px 2px 0 red) drop-shadow(-2px 2px 0 red)
+        drop-shadow(2px -2px 0 red) drop-shadow(-2px -2px 0 red);
 
-    filter: drop-shadow(2px 2px 0 red)
-            drop-shadow(-2px 2px 0 red)
-            drop-shadow(2px -2px 0 red)
-            drop-shadow(-2px -2px 0 red);
-  }
+    filter: drop-shadow(2px 2px 0 red) drop-shadow(-2px 2px 0 red)
+        drop-shadow(2px -2px 0 red) drop-shadow(-2px -2px 0 red);
+}
 
-
-  .rightside-container {
+.rightside-container {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -346,9 +337,9 @@
     width: 50vw;
     height: 100%;
     border: 1px solid white;
-  }
+}
 
-  .editor-properties-buttons {
+.editor-properties-buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -356,48 +347,48 @@
     height: 30px;
     width: 100%;
     border: 1px solid white;
-  }
+}
 
-  .editor-properties-buttons button {
+.editor-properties-buttons button {
     background-color: lightgrey;
     color: black;
     width: 90px;
     cursor: pointer;
-  }
+}
 
-  .editor-properties-buttons button:hover {
+.editor-properties-buttons button:hover {
     background-color: grey;
-  }
+}
 
-  .editor-properties-buttons button:disabled {
+.editor-properties-buttons button:disabled {
     background-color: grey;
     cursor: default;
-  }
+}
 
-  .editor-properties-container{
+.editor-properties-container {
     display: flex;
     width: 100%;
     flex-grow: 1;
     border: 1px solid white;
-  }
+}
 
-  .icon-editor {
+.icon-editor {
     display: flex;
     flex-direction: row;
     justify-content: left;
     width: 100%;
-  }
+}
 
-  .panner-container {
+.panner-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 80%;
     height: 100%;
     border: 1px solid white;
-  }
+}
 
-  .panner{
+.panner {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -406,76 +397,76 @@
     width: 450px;
     border: 1px solid white;
     /* overflow: hidden; */
-  }
+}
 
-  .editor-controls-container {
+.editor-controls-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     flex-grow: 1;
     border: 1px solid white;
-  }
+}
 
-  .editor-controls-inner-container {
+.editor-controls-inner-container {
     display: flex;
     flex-direction: column;
     height: 400px;
     border: 1px solid white;
     flex-grow: 1;
-  }
+}
 
-  .editor-controls {
+.editor-controls {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 75%;
     border: 1px solid white;
-  }
+}
 
-  .alt-controls-container {
+.alt-controls-container {
     display: flex;
     height: 25%;
     justify-content: center;
     align-items: flex-end;
     border: 1px solid white;
-  }
+}
 
-  .alt-controls-inner-container {
+.alt-controls-inner-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
     border: 1px solid white;
-  }
-  
-  .alt-controls {
+}
+
+.alt-controls {
     display: flex;
     justify-content: center;
     width: 50%;
     border: 1px solid white;
-  }
+}
 
-  .hex-small {
+.hex-small {
     display: flex;
     height: 33%;
     border: 1px solid white;
     align-items: center;
     justify-content: center;
     width: 100%;
-  }
+}
 
-  .hex-large {
+.hex-large {
     display: flex;
     height: 33%;
     border: 1px solid white;
     align-items: center;
     justify-content: center;
     width: 100%;
-  }
+}
 
-  .allegiance {
+.allegiance {
     display: flex;
     flex-direction: row;
     height: 33%;
@@ -483,42 +474,42 @@
     align-items: center;
     justify-content: left;
     width: 100%;
-  }
+}
 
-  .neutral {
+.neutral {
     display: flex;
     height: 100%;
     width: 50%;
     justify-content: center;
     align-items: center;
     border: 1px solid white;
-  }
-  
-  .evil {
+}
+
+.evil {
     display: flex;
     height: 100%;
     width: 50%;
     justify-content: center;
     align-items: center;
     border: 1px solid white;
-  }
+}
 
-  .icon-image {
+.icon-image {
     /* position: absolute; */
     width: 100%;
     height: 100%;
     z-index: 1;
-  }
+}
 
-  .hex-overlay {
+.hex-overlay {
     position: absolute;
     height: 100%;
     width: auto;
     z-index: 2;
     pointer-events: none;
-  }
+}
 
-  .bounding-box {
+.bounding-box {
     position: absolute;
     height: 220px;
     aspect-ratio: 1/1.1547;
@@ -526,66 +517,88 @@
     z-index: 3;
     pointer-events: none;
     border: 1px solid red;
-  }
+}
 
-  .editor-properties-container p:hover {
+.editor-properties-container p:hover {
     color: lightskyblue;
     cursor: pointer;
-  }
+}
 
-  .alt-controls:hover {
-    color: lightskyblue;
-    cursor: pointer;
-    border: 1px solid lightskyblue;
-  }
-
-  .neutral:hover {
+.alt-controls:hover {
     color: lightskyblue;
     cursor: pointer;
     border: 1px solid lightskyblue;
-  }
-  
-  .evil:hover {
+}
+
+.neutral:hover {
     color: lightskyblue;
     cursor: pointer;
     border: 1px solid lightskyblue;
-  }
+}
 
-  .hex-small {
+.evil:hover {
+    color: lightskyblue;
+    cursor: pointer;
+    border: 1px solid lightskyblue;
+}
+
+.hex-small {
     cursor: default;
-  }
+}
 
-  .hex-large {
+.hex-large {
     cursor: default;
-  }
+}
 
-  .icon-properties {
+.icon-properties {
     display: flex;
     flex-direction: column;
     justify-content: left;
     align-items: flex-start;
-  }
+}
 
-  .properties-icon-neutral {
-    --border-color : white;
-    --border-weight : 4px;
-    --negative-border-weight : -4px;
+.properties-icon-neutral {
+    --border-color: white;
+    --border-weight: 4px;
+    --negative-border-weight: -4px;
     height: 250px;
     margin-top: 20px;
     margin-left: 0px;
     margin-bottom: 20px;
-    -webkit-filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
+    -webkit-filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
 
-    filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
-  }
+    filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
+}
 
-  .properties-icon-container {
+.properties-icon-container {
     display: flex;
     position: relative;
     flex-direction: row;
@@ -595,135 +608,157 @@
     height: 300px;
     width: 260px;
     pointer-events: none;
-  }
+}
 
-  .properties-icon-evil {
-    --border-color : red;
-    --border-weight : 4px;
-    --negative-border-weight : -4px;
+.properties-icon-evil {
+    --border-color: red;
+    --border-weight: 4px;
+    --negative-border-weight: -4px;
     height: 250px;
     /* height: 200px; */
     /* margin-top: 20px;
     margin-left: 0px;
     margin-bottom: 20px; */
-    -webkit-filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
+    -webkit-filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
 
-    filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
-  }
+    filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
+}
 
-  .properties-top-bar {
+.properties-top-bar {
     display: flex;
     flex-direction: row;
     justify-content: left;
     align-items: center;
-  }
+}
 
-  .entity-properties-container {
+.entity-properties-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
+}
 
-  .properties-bottom-container {
+.properties-bottom-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 7px;
     margin-left: 75px;
-  }
+}
 
-  .swap-allegiance:hover {
+.swap-allegiance:hover {
     cursor: pointer;
     color: lightskyblue;
-  }
+}
 
-  .remove-entity:hover {
+.remove-entity:hover {
     cursor: pointer;
     color: lightskyblue;
-  }
+}
 
-  .icon-properties-placeholder {
+.icon-properties-placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100vh;
     cursor: default;
-    }
+}
 
-  .properties-property {
+.properties-property {
     display: flex;
     flex-direction: row;
     gap: 5px;
     margin: 10px;
     margin-left: 5px;
     cursor: default;
-  }
+}
 
-  .properties-number-input {
+.properties-number-input {
     width: 20px;
     text-align: center;
-  }
+}
 
-  input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
+}
 
-  .modifiers {
+.modifiers {
     width: 270px;
     height: auto;
-  }
+}
 
-  .visible-dead:hover {
+.visible-dead:hover {
     cursor: pointer;
     color: lightskyblue;
-  }
+}
 
-  .show-display-container {
+.show-display-container {
     width: 33%;
     display: flex;
     flex-direction: row;
     justify-content: right;
     align-items: center;
-  }
+}
 
-  .show-display:hover {
+.show-display:hover {
     cursor: pointer;
     color: lightskyblue;
-  }
+}
 
-  .test-icon {
+.test-icon {
     position: absolute;
     top: 0px;
     left: 0px;
     z-index: 3;
-  }
+}
 
-  .no-anti-alias {
+.no-anti-alias {
     image-rendering: pixelated;
     /* image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges; */
-  }
+}
 
-  .hex-center {
+.hex-center {
     height: 0px;
     width: 0px;
     border: 1px solid red;
     z-index: 10000;
     position: absolute;
     transform: translate(-50%, -50%);
-  }
+}
 
-  .grid-entity {
+.grid-entity {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -731,119 +766,165 @@
     position: absolute;
     transform: translate(-50%, -50%);
     cursor: pointer;
-  }
+}
 
-  .grid-entity-selected {
+.grid-entity-selected {
     opacity: 0.75;
-  }
+}
 
-  .grid-entity-icon-evil {
+.grid-entity-icon-evil {
     display: flex;
     height: 100%;
-    --border-color : red;
-    --border-weight : 1px;
-    --negative-border-weight : -1px;
+    --border-color: red;
+    --border-weight: 1px;
+    --negative-border-weight: -1px;
     /* height: 200px; */
     /* margin-top: 20px;
     margin-left: 0px;
     margin-bottom: 20px; */
-    -webkit-filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
+    -webkit-filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
 
-    filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
+    filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
 
     image-rendering: auto;
-  }
+}
 
-  .grid-entity-icon-neutral {
+.grid-entity-icon-neutral {
     display: flex;
     height: 100%;
-    --border-color : white;
-    --border-weight : 1px;
-    --negative-border-weight : -1px;
+    --border-color: white;
+    --border-weight: 1px;
+    --negative-border-weight: -1px;
     /* height: 200px; */
     /* margin-top: 20px;
     margin-left: 0px;
     margin-bottom: 20px; */
-    -webkit-filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-                    drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-                    drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
+    -webkit-filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
 
-    filter: drop-shadow(var(--border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--border-weight) 0 var(--border-color))
-            drop-shadow(var(--border-weight) var(--negative-border-weight) 0 var(--border-color))
-            drop-shadow(var(--negative-border-weight) var(--negative-border-weight) 0 var(--border-color));
+    filter: drop-shadow(
+            var(--border-weight) var(--border-weight) 0 var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        )
+        drop-shadow(
+            var(--negative-border-weight) var(--negative-border-weight) 0
+                var(--border-color)
+        );
 
     image-rendering: auto;
-  }
+}
 
-  .healthbar{
+.healthbar {
     position: absolute;
     top: 105%;
     background-color: rgb(0, 255, 0);
     height: 5%;
-  }
+}
 
-  .display-window-container{
+.display-window-container {
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .combat-display-container {
+.combat-display-container {
     position: relative;
     height: 90%;
     width: auto;
-  }
+}
 
-  .constructor-display-battlemap {
+.constructor-display-battlemap {
     height: 100%;
     width: auto;
     z-index: -2;
-  }
+}
 
-  .campaign-display-container {
+.campaign-display-container {
     /* display: flex;
     align-items: center;
     justify-content: center; */
     position: relative;
     height: 95%;
     width: auto;
-  }
+}
 
-  .hexgrid-container {
+.hexgrid-container {
     position: absolute;
     top: 0%;
     left: 0%;
     /* border: 1px solid white;  */
     width: 100%;
     height: 100%;
-  }
+}
 
-  .hexgrid-image {
+.hexgrid-image {
     width: 100%;
     height: 100%;
-  }
+}
 
-  .campaign-display-landscape {
+.campaign-display-landscape {
     height: 100%;
     width: auto;
     z-index: -2;
-  }
+}
 
-  .campaign-display-grid {
+.campaign-display-grid {
     display: grid;
     align-items: center;
     justify-content: center;
-    position:absolute;
+    position: absolute;
     top: 0%;
     left: 0%;
     width: 100%;
@@ -851,21 +932,21 @@
     z-index: 1;
     grid-template-columns: auto;
     grid-template-rows: 1fr 50% 1fr;
-    gap: 5%  ;
-  }
+    gap: 5%;
+}
 
-  .campaign-display-splash {
+.campaign-display-splash {
     display: flex;
     height: 100%;
     width: auto;
     box-shadow: #24242498 0px 10px 10px 10px;
     grid-row-start: 2;
-  }
+}
 
-  .splash-neutral {
+.splash-neutral {
     outline: #ffffff solid 5px;
-  }
+}
 
-  .splash-evil {
+.splash-evil {
     outline: red solid 5px;
-  }
+}

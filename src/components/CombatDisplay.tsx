@@ -11,6 +11,8 @@ import { useParams } from 'react-router-dom';
 import { invoke } from '@tauri-apps/api/core';
 import GridEntity from './GridEntity';
 import { generateGridCenters } from '../hexgrid';
+import { getCurrentWindow } from '@tauri-apps/api/window';
+import Button from './Button';
 
 function CombatDisplay() {
     // const { chapterData: initChapterData, battlemapId: initBattlemapId } = useGlobalState();
@@ -38,6 +40,8 @@ function CombatDisplay() {
     const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
 
     const containerRef = useRef<HTMLDivElement>(null);
+    const [fullscreen, setFullscreen] = useState(false);
+    const [window] = useState(getCurrentWindow());
 
     // const disableTransform = () => setIsTransformEnabled(false);
     // const enableTransform = () => setIsTransformEnabled(true);
@@ -90,7 +94,10 @@ function CombatDisplay() {
         }
     }, [chapterData, battlemapId, combatData]);
 
-    const handleEntityMouseDown = (event: MouseEvent<HTMLDivElement>, entity: Entity) => {
+    const handleEntityMouseDown = (
+        event: MouseEvent<HTMLDivElement>,
+        entity: Entity
+    ) => {
         if (event.button !== 0) return;
         console.log('entity clicked:', entity);
         setSelectedEntity(entity);
@@ -105,42 +112,53 @@ function CombatDisplay() {
         if (selectedEntity !== null) {
             console.log('entity selected:', selectedEntity);
             if (!containerRef.current) return;
-            const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+            const { left, top, width, height } =
+                containerRef.current.getBoundingClientRect();
 
             // Calculate percentage-based coordinates
             const percentX = ((event.clientX - left) / width) * 100;
             const percentY = ((event.clientY - top) / height) * 100;
 
-            console.log(`Clicked at: ${percentX.toFixed(2)}% X, ${percentY.toFixed(2)}% Y`);
+            console.log(
+                `Clicked at: ${percentX.toFixed(2)}% X, ${percentY.toFixed(
+                    2
+                )}% Y`
+            );
 
             // Calculate grid coordinates
             const newY = (() => {
                 let min = Infinity;
                 let nearest = 0;
-            
+
                 for (let i = 0; i < percentageCenters.y.length; i++) {
-                    const distance = Math.abs(percentageCenters.y[i] - percentY);
+                    const distance = Math.abs(
+                        percentageCenters.y[i] - percentY
+                    );
                     if (distance < min) {
                         min = distance;
                         nearest = i;
                     }
                 }
-            
+
                 return nearest;
             })();
 
             const newX = (() => {
                 let min = Infinity;
                 let nearest = 0;
-            
+
                 for (let i = 0; i < percentageCenters.x.length; i++) {
-                    const distance = Math.abs(percentageCenters.x[i] - (percentX - (newY % 2 !== 0 ? percentageCenters.offset : 0)));
+                    const distance = Math.abs(
+                        percentageCenters.x[i] -
+                            (percentX -
+                                (newY % 2 !== 0 ? percentageCenters.offset : 0))
+                    );
                     if (distance < min) {
                         min = distance;
                         nearest = i;
                     }
                 }
-            
+
                 return nearest;
             })();
 
@@ -172,14 +190,27 @@ function CombatDisplay() {
         return () => cancelIdleCallback(handle);
     }, [combatData.gridsize]);
 
+    const handleFullscreenClick = () => {
+        console.log('fullscreen', fullscreen);
+        window
+            .setFullscreen(!fullscreen)
+            .then(() => setFullscreen(!fullscreen));
+    };
+
     return (
         <div className='no-anti-alias'>
             <TransformWrapper disabled={!isTransformEnabled}>
                 <TransformComponent>
                     <div className='display-window-container'>
+                        <Button onClick={handleFullscreenClick}> </Button>
                         {battlemapId !== '' ? (
                             combatData && (
-                                <div ref={containerRef} className='combat-display-container' onMouseDown={handleLeftClick} onContextMenu={handleRightClick}>
+                                <div
+                                    ref={containerRef}
+                                    className='combat-display-container'
+                                    onMouseDown={handleLeftClick}
+                                    onContextMenu={handleRightClick}
+                                >
                                     <img
                                         src={`../tableau/assets/battlemaps/${combatData.battlemap}`}
                                         className='constructor-display-battlemap'
@@ -194,7 +225,12 @@ function CombatDisplay() {
                                     {entityData.map((entity, index) => (
                                         <div
                                             key={index}
-                                            className={`grid-entity ${entity.icon === selectedEntity?.icon ? "grid-entity-selected" : ""}`}
+                                            className={`grid-entity ${
+                                                entity.icon ===
+                                                selectedEntity?.icon
+                                                    ? 'grid-entity-selected'
+                                                    : ''
+                                            }`}
                                             style={{
                                                 left: `${
                                                     percentageCenters.x[
@@ -213,7 +249,12 @@ function CombatDisplay() {
                                                     gridsizePercentage * 2
                                                 }%`,
                                             }}
-                                            onMouseDown={(event) => handleEntityMouseDown(event, entity)}
+                                            onMouseDown={(event) =>
+                                                handleEntityMouseDown(
+                                                    event,
+                                                    entity
+                                                )
+                                            }
                                             onContextMenu={handleRightClick}
                                         >
                                             <GridEntity entity={entity} />
@@ -222,7 +263,7 @@ function CombatDisplay() {
                                 </div>
                             )
                         ) : (
-                            <p style={{fontStyle: 'italic'}}>
+                            <p style={{ fontStyle: 'italic' }}>
                                 Nothing to display...
                             </p>
                         )}
