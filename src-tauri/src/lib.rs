@@ -1,6 +1,7 @@
 mod utils;
 mod models;
 
+use std::fs;
 use std::fs::{File, OpenOptions};
 use std::io::{Read, Write};
 use std::path::{Path};
@@ -11,6 +12,9 @@ use crate::models::{TransformStateObject};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+
+    initialize_directory_structure().expect("Failed to initialize directory structure");
+
   tauri::Builder::default()
     .setup(|app| {
       if cfg!(debug_assertions) {
@@ -50,6 +54,44 @@ pub fn run() {
       ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
+}
+
+fn initialize_directory_structure() -> Result<(), std::io::Error> {
+    // Create the base tableau directory
+    let base_dir = Path::new("../tableau");
+    create_directory_if_not_exists(base_dir)?;
+
+    // Create subdirectories
+    let directories = [
+        "chapters",
+        "assets",
+        "assets/landscapes",
+        "assets/splashes",
+        "assets/battlemaps",
+        "assets/entities",
+        "assets/iconimages",
+        "assets/hexgrids",
+        "entities"
+    ];
+
+    for dir in directories.iter() {
+        create_directory_if_not_exists(&base_dir.join(dir))?;
+    }
+
+    // Create entity IDs file if it doesn't exist
+    let entity_ids_file = base_dir.join("entities").join("entity_ids.txt");
+    if !entity_ids_file.exists() {
+        File::create(entity_ids_file)?;
+    }
+
+    Ok(())
+}
+
+fn create_directory_if_not_exists(path: &Path) -> Result<(), std::io::Error> {
+    if !path.exists() {
+        fs::create_dir_all(path)?;
+    }
+    Ok(())
 }
 
 #[tauri::command]

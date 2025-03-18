@@ -7,11 +7,38 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# User data and assets
 tableau
+
+# Build outputs
 dist
 dist-ssr
 *.local
+
+# Rust / Tauri specific
+target/
+**/*.rs.bk
+*.pdb
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# Testing
+.nyc_output
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +50,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Optional: Uncomment if you want to track Cargo.lock for reproducible builds
+# !Cargo.lock
