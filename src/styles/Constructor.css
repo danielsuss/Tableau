@@ -702,14 +702,14 @@ h1 {
 }
 
 .properties-number-input {
-    width: 20px;
+    width: 40px;
     text-align: center;
 }
 
-input[type='number']::-webkit-inner-spin-button {
+/* input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
+} */
 
 .modifiers {
     width: 270px;
@@ -753,7 +753,7 @@ input[type='number']::-webkit-inner-spin-button {
     height: 0px;
     width: 0px;
     border: 1px solid red;
-    z-index: 10000;
+    z-index: 50;
     position: absolute;
     transform: translate(-50%, -50%);
 }
@@ -762,10 +762,17 @@ input[type='number']::-webkit-inner-spin-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10000;
+    z-index: 50;
     position: absolute;
     transform: translate(-50%, -50%);
     cursor: pointer;
+}
+
+.grid-entity-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .grid-entity-selected {
@@ -867,6 +874,7 @@ input[type='number']::-webkit-inner-spin-button {
     top: 105%;
     background-color: rgb(0, 255, 0);
     height: 5%;
+    z-index: 100;
 }
 
 .display-window-container {

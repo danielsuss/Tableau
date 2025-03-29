@@ -222,44 +222,50 @@ function CombatDisplay() {
                                             className='hexgrid-image'
                                         />
                                     </div>
-                                    {entityData.map((entity, index) => (
-                                        <div
-                                            key={index}
-                                            className={`grid-entity ${
-                                                entity.icon ===
-                                                selectedEntity?.icon
-                                                    ? 'grid-entity-selected'
-                                                    : ''
-                                            }`}
-                                            style={{
-                                                left: `${
-                                                    percentageCenters.x[
-                                                        entity.location.x
-                                                    ] +
-                                                    (entity.location.y % 2 !== 0
-                                                        ? percentageCenters.offset
-                                                        : 0)
-                                                }%`,
-                                                top: `${
-                                                    percentageCenters.y[
-                                                        entity.location.y
-                                                    ]
-                                                }%`,
-                                                height: `${
-                                                    gridsizePercentage * 2
-                                                }%`,
-                                            }}
-                                            onMouseDown={(event) =>
-                                                handleEntityMouseDown(
-                                                    event,
-                                                    entity
-                                                )
-                                            }
-                                            onContextMenu={handleRightClick}
-                                        >
-                                            <GridEntity entity={entity} />
-                                        </div>
-                                    ))}
+                                    {entityData
+                                        .filter(
+                                            (entity) => entity.visible === true
+                                        )
+                                        .map((entity, index) => (
+                                            <div
+                                                key={index}
+                                                className={`grid-entity ${
+                                                    entity.icon ===
+                                                    selectedEntity?.icon
+                                                        ? 'grid-entity-selected'
+                                                        : ''
+                                                }`}
+                                                style={{
+                                                    left: `${
+                                                        percentageCenters.x[
+                                                            entity.location.x
+                                                        ] +
+                                                        (entity.location.y %
+                                                            2 !==
+                                                        0
+                                                            ? percentageCenters.offset
+                                                            : 0)
+                                                    }%`,
+                                                    top: `${
+                                                        percentageCenters.y[
+                                                            entity.location.y
+                                                        ]
+                                                    }%`,
+                                                    height: `${
+                                                        gridsizePercentage * 2
+                                                    }%`,
+                                                }}
+                                                onMouseDown={(event) =>
+                                                    handleEntityMouseDown(
+                                                        event,
+                                                        entity
+                                                    )
+                                                }
+                                                onContextMenu={handleRightClick}
+                                            >
+                                                <GridEntity entity={entity} />
+                                            </div>
+                                        ))}
                                 </div>
                             )
                         ) : (
