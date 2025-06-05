@@ -958,3 +958,12 @@ h1 {
 .splash-evil {
     outline: red solid 5px;
 }
+
+.element-item:hover {
+    transform: scale(1.2);
+}
+
+.element-selected {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
