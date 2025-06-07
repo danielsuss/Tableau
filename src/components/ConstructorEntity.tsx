@@ -1,4 +1,5 @@
 import { Entity } from "./GlobalStateContext";
+import '../styles/components/ConstructorEntity.css';
 
 interface props {
     entity: Entity;

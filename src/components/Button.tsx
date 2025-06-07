@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import '../styles/components/Button.css';
 
 interface ButtonProps {
     onClick: Function;

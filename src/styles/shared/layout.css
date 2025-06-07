@@ -1,0 +1,122 @@
+/* Common layout patterns shared across components */
+
+/* Constructor base layout */
+.constructor-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Combat constructor class extends constructor-container */
+.combat-constructor {
+    /* Inherits from constructor-container */
+}
+
+/* Navigation bar layout */
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    width: 100vw;
+    height: 40px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+/* Back button layout */
+.back-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    width: 33%;
+}
+
+.back-button {
+    margin-top: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.back-icon {
+    width: 30px;
+    height: 30px;
+    transition: fill 0.3s ease;
+}
+
+.back-icon:hover {
+    fill: grey;
+}
+
+/* Header layout */
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 33%;
+    font-size: larger;
+    color: #ffffff;
+    cursor: default;
+}
+
+/* Display window controls */
+.show-display-container {
+    width: 33%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    gap: 10px;
+}
+
+.show-display, .clear-selections {
+    padding: 8px 16px;
+    border: 1px solid #ffffff;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.show-display:hover, .clear-selections:hover {
+    cursor: pointer;
+    color: lightskyblue;
+    border-color: lightskyblue;
+}
+
+/* Context menu layout */
+.context-menu {
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100px;
+    background-color: #242424;
+    border: 1px solid #ffffff;
+    z-index: 9999;
+    color: white;
+    pointer-events: auto;
+}
+
+.context-menu p {
+    cursor: pointer;
+}
+
+.context-menu p:hover {
+    color: lightskyblue;
+}
+
+/* Display window layouts */
+.display-window-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}

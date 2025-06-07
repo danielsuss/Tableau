@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { useGlobalState } from './GlobalStateContext';
-import '../styles/ChapterSelect.css';
+import '../styles/components/ChapterSelect.css';
 
 function ChapterSelect() {
   const navigate = useNavigate();

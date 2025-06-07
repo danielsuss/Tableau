@@ -1,0 +1,107 @@
+/* Properties Editor component styles */
+@import '../shared/forms.css';
+
+.icon-properties {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.properties-icon-neutral {
+    height: 250px;
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+
+.properties-icon-container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 260px;
+    pointer-events: none;
+}
+
+.properties-icon-evil {
+    height: 250px;
+}
+
+.properties-top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.entity-properties-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.properties-bottom-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-left: 75px;
+}
+
+.swap-allegiance:hover {
+    cursor: pointer;
+    color: lightskyblue;
+}
+
+.remove-entity:hover {
+    cursor: pointer;
+    color: lightskyblue;
+}
+
+.icon-properties-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vh;
+    cursor: default;
+}
+
+.properties-property {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin: 10px;
+    margin-left: 5px;
+    cursor: default;
+}
+
+.hitpoints-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hitpoints-separator {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0 4px;
+}
+
+.visible-dead:hover {
+    cursor: pointer;
+    color: lightskyblue;
+}
+
+/* Allegiance styling (placeholder for future use) */
+.allegiance-neutral {
+    /* Outline styling removed */
+}
+
+.allegiance-evil {
+    /* Outline styling removed */
+}

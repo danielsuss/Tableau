@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api/core';
 import { useNavigate } from 'react-router-dom';
 import { emit } from '@tauri-apps/api/event';
 import { useGlobalState, useUpdateBattlemapId } from './GlobalStateContext';
-import '../styles/Constructor.css';
+import '../styles/components/CombatElement.css';
 
 function CombatElement({ filename, reloadChapterData }: { filename: string, reloadChapterData: () => void }) {
   const { chapterId } = useGlobalState(); // Access global chapterId

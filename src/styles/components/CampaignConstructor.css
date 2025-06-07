@@ -1,0 +1,202 @@
+/* Campaign Constructor specific styles */
+@import '../shared/layout.css';
+@import './LandscapeElement.css';
+@import './SplashElement.css'; 
+@import './CombatElement.css';
+
+/* Campaign constructor responsive width */
+.campaign-constructor {
+    width: 100%;
+    min-width: 320px;
+}
+
+/* Campaign constructor specific nav styling */
+.campaign-constructor .nav-bar {
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Elements container */
+.elements {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100vw;
+    height: calc(100vh - 160px);
+}
+
+/* Campaign constructor specific elements width */
+.campaign-constructor .elements {
+    width: 100%;
+    height: calc(100vh - 200px);
+}
+
+/* Element items */
+.element-item {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    transform-origin: center;
+}
+
+.element-item.landscape {
+    height: 79px;
+}
+
+.element-item.add {
+    width: 140px;
+}
+
+.element-item.splash {
+    width: 77px;
+}
+
+.element-item:hover {
+    transform: scale(1.2);
+}
+
+.element-item p {
+    text-align: center;
+    margin: 0;
+    font-size: 10px;
+    color: white;
+}
+
+.element-item img {
+    height: auto;
+    width: 100%;
+}
+
+.element-selected {
+    opacity: 0.5;
+}
+
+/* Landscape and splash containers */
+.landscapes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 50%;
+    min-width: 150px;
+}
+
+.splashes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 50%;
+    min-width: 150px;
+}
+
+.add-element-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 70px;
+}
+
+/* Combat box */
+.combatbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 0;
+    justify-content: flex-start;
+    width: 100vw;
+    border-top: 1px solid white;
+}
+
+/* Campaign constructor specific combatbox width */
+.campaign-constructor .combatbox {
+    width: 100%;
+}
+
+.divider {
+    width: 0px;
+    height: 99.7%;
+    border: 1px solid white;
+    margin-right: 3px;
+}
+
+/* Responsive breakpoints for campaign constructor sidebar usage */
+@media (max-width: 600px) {
+    .campaign-constructor.constructor-container {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    .campaign-constructor .elements {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+    
+    .campaign-constructor .landscapes, 
+    .campaign-constructor .splashes {
+        width: 100%;
+        min-width: 100%;
+        justify-content: center;
+        padding: 10px 0;
+    }
+    
+    .campaign-constructor .nav-bar {
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 40px;
+        padding: 5px;
+    }
+    
+    .campaign-constructor .header-container {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .campaign-constructor .back-button-container, 
+    .campaign-constructor .show-display-container {
+        width: auto;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .campaign-constructor.constructor-container {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    /* Only apply combat-related responsive changes to campaign constructor */
+    .campaign-constructor .combatbox {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .campaign-constructor .element-item.landscape {
+        height: 60px;
+    }
+    
+    .campaign-constructor .element-item.add {
+        width: 100px;
+    }
+    
+    .campaign-constructor .element-item.splash {
+        width: 60px;
+    }
+    
+    .campaign-constructor {
+        min-width: 280px;
+    }
+}

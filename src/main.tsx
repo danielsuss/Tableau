@@ -6,6 +6,8 @@ import CampaignConstructor from './components/CampaignConstructor'; // Import Ca
 import CombatConstructor from './components/CombatContructor';
 import { GlobalStateProvider } from './components/GlobalStateContext'; // Import GlobalStateProvider
 import './styles/index.css';
+import './styles/shared/layout.css';
+import './styles/shared/forms.css';
 import CombatDisplay from './components/CombatDisplay';
 import CampaignDisplay from './components/CampaignDisplay';
 

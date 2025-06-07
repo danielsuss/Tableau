@@ -6,7 +6,7 @@ import LandscapeElement from './LandscapeElement';
 import SplashElement from './SplashElement';
 import CombatElement from './CombatElement';
 import { useGlobalState, useOpenDisplayWindow } from './GlobalStateContext';
-import '../styles/Constructor.css';
+import '../styles/components/CampaignConstructor.css';
 
 function CampaignConstructor() {
   const navigate = useNavigate();

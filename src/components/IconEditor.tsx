@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { TransformWrapper, TransformComponent, useTransformComponent} from 'react-zoom-pan-pinch';
 import { invoke } from '@tauri-apps/api/core';
 import { useGlobalState, useReloadChapterData } from './GlobalStateContext';
+import '../styles/components/IconEditor.css';
 
 type TransformStateObject = {
   scale: number;

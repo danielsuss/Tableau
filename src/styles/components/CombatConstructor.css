@@ -1,0 +1,266 @@
+/* Combat Constructor specific styles */
+@import '../shared/layout.css';
+@import '../shared/forms.css';
+@import './PropertiesEditor.css';
+@import './IconEditor.css';
+@import './ConstructorEntity.css';
+
+/* Battlemap container */
+.battlemap-container {
+    position: relative;
+    width: 100vw;
+    height: 120px;
+    border: 1px solid white;
+}
+
+.battlemap {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    border: 1px solid white;
+}
+
+.battlemap-icon-container {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.battlemap-icon {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: auto;
+}
+
+/* Hexgrid section */
+.hexgrid {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    left: 50%;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    border: 1px solid white;
+}
+
+.hexgrid-icon {
+    max-width: 90%;
+    max-height: 90%;
+    height: auto;
+    width: auto;
+}
+
+/* Sliders */
+.sliders-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+    border: 1px solid white;
+}
+
+.slider {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    height: 33%;
+    width: 100%;
+    border: 1px solid white;
+    flex-grow: 1;
+}
+
+.slider input {
+    cursor: pointer;
+}
+
+.slider p {
+    cursor: default;
+}
+
+.reset:hover {
+    color: lightskyblue;
+    cursor: pointer;
+}
+
+/* Entities container */
+.entities-container {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 160px);
+    border: 1px solid white;
+}
+
+.icons {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 50%;
+    row-gap: 20px;
+}
+
+.entity-icon {
+    height: 76px;
+    width: auto;
+    margin-top: 10px;
+}
+
+.entity-container-clicked-false {
+    transition: transform 0.1s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+}
+
+.entity-container-clicked-true {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1.2);
+    width: 100px;
+}
+
+.entity-container-clicked-false:hover {
+    transform: scale(1.1);
+}
+
+/* Right side panel */
+.rightside-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    border: 1px solid white;
+}
+
+.editor-properties-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    border: 1px solid white;
+}
+
+.editor-properties-buttons button {
+    background-color: lightgrey;
+    color: black;
+    width: 90px;
+    cursor: pointer;
+}
+
+.editor-properties-buttons button:hover {
+    background-color: grey;
+}
+
+.editor-properties-buttons button:disabled {
+    background-color: grey;
+    cursor: default;
+}
+
+.editor-properties-container {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    border: 1px solid white;
+}
+
+/* Combat constructor responsive behavior for narrow widths */
+@media (max-width: 800px) {
+    .combat-constructor .battlemap-container {
+        display: none;
+    }
+    
+    .combat-constructor .entities-container {
+        height: calc(100vh - 40px);
+    }
+    
+    .combat-constructor .editor-properties-buttons.narrow-width {
+        display: none;
+    }
+    
+    .combat-constructor .editor-properties-container {
+        height: 100%;
+    }
+    
+    .combat-constructor .properties-top-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .combat-constructor .entity-properties-container {
+        margin-left: 0;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .combat-constructor .properties-property {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        margin: 15px;
+    }
+    
+    .combat-constructor .properties-property input {
+        margin: 4px;
+    }
+    
+    .combat-constructor .properties-number-input {
+        display: inline-block;
+        margin: 0 4px;
+        width: 60px;
+    }
+    
+    .combat-constructor .hitpoints-inputs {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .combat-constructor .hitpoints-separator {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+        margin: 0 4px;
+    }
+    
+    .combat-constructor .properties-bottom-container {
+        display: none;
+    }
+    
+    .combat-constructor .modifiers {
+        width: 100%;
+        max-width: 250px;
+        min-height: 80px;
+    }
+}

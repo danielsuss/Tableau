@@ -7,6 +7,7 @@ import {
     useReloadEntityData,
 } from './GlobalStateContext';
 import { useState } from 'react';
+import '../styles/components/PropertiesEditor.css';
 
 interface props {
     entity: Entity;

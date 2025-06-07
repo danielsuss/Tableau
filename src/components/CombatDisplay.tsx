@@ -13,6 +13,7 @@ import GridEntity from './GridEntity';
 import { generateGridCenters } from '../hexgrid';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import Button from './Button';
+import '../styles/components/CombatDisplay.css';
 
 function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId }: { chapterId?: string; battlemapId?: string } = {}) {
     // const { chapterData: initChapterData, battlemapId: initBattlemapId } = useGlobalState();

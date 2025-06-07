@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Splash } from './GlobalStateContext';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import CombatDisplay from './CombatDisplay';
+import '../styles/components/CampaignDisplay.css';
 
 function CampaignDisplay() {
     const [landscape, setLandscape] = useState<String | null>(null);

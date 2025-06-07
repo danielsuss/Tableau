@@ -1,0 +1,4 @@
+/* Combat Element component styles */
+/* Note: CampaignConstructor.css imports this file, so we don't import it back to avoid circular dependency */
+
+/* Combat element-specific overrides can be added here if needed */

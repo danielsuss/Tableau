@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import { useState } from "react";
 import { Combat, useGlobalState, useReloadChapterData } from "./GlobalStateContext"; // Import global state
+import '../styles/components/BattlemapController.css';
 
 interface props {
     combatData: Combat;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { useGlobalState } from './GlobalStateContext';
-import '../styles/Constructor.css';
+import '../styles/components/LandscapeElement.css';
 import { emit, listen } from '@tauri-apps/api/event';
 
 function LandscapeElement({

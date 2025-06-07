@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Entity } from './GlobalStateContext';
+import '../styles/components/GridEntity.css';
 
 interface Props {
     entity: Entity;

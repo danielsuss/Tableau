@@ -1,0 +1,45 @@
+/* Campaign Display component styles */
+
+.campaign-display-container {
+    position: relative;
+    height: 95%;
+    width: auto;
+}
+
+.campaign-display-landscape {
+    height: 100%;
+    width: auto;
+    z-index: -2;
+}
+
+.campaign-display-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    gap: 5%;
+}
+
+.campaign-display-splash {
+    display: flex;
+    max-height: 40vh;
+    height: auto;
+    width: auto;
+    max-width: 30%;
+    box-shadow: #24242498 0px 10px 10px 10px;
+}
+
+.splash-neutral {
+    outline: #ffffff solid 5px;
+}
+
+.splash-evil {
+    outline: red solid 5px;
+}

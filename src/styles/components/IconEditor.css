@@ -1,0 +1,185 @@
+/* Icon Editor component styles */
+@import '../shared/forms.css';
+
+.icon-editor {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+}
+
+.panner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    border: 1px solid white;
+}
+
+.panner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 450px;
+    width: 450px;
+    border: 1px solid white;
+}
+
+.editor-controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+    border: 1px solid white;
+}
+
+.editor-controls-inner-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border: 1px solid white;
+    flex-grow: 1;
+}
+
+.editor-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 75%;
+    border: 1px solid white;
+}
+
+.alt-controls-container {
+    display: flex;
+    height: 25%;
+    justify-content: center;
+    align-items: flex-end;
+    border: 1px solid white;
+}
+
+.alt-controls-inner-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid white;
+}
+
+.alt-controls {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    border: 1px solid white;
+}
+
+.hex-small {
+    display: flex;
+    height: 33%;
+    border: 1px solid white;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.hex-large {
+    display: flex;
+    height: 33%;
+    border: 1px solid white;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.allegiance {
+    display: flex;
+    flex-direction: row;
+    height: 33%;
+    border: 1px solid white;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+}
+
+.neutral {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+
+.evil {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+
+.icon-image {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hex-overlay {
+    position: absolute;
+    height: 100%;
+    width: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.bounding-box {
+    position: absolute;
+    height: 220px;
+    aspect-ratio: 1/1.1547;
+    width: auto;
+    z-index: 3;
+    pointer-events: none;
+    border: 1px solid red;
+}
+
+.test-icon {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 3;
+}
+
+.editor-properties-container p:hover {
+    color: lightskyblue;
+    cursor: pointer;
+}
+
+.alt-controls:hover {
+    color: lightskyblue;
+    cursor: pointer;
+    border: 1px solid lightskyblue;
+}
+
+.neutral:hover {
+    color: lightskyblue;
+    cursor: pointer;
+    border: 1px solid lightskyblue;
+}
+
+.evil:hover {
+    color: lightskyblue;
+    cursor: pointer;
+    border: 1px solid lightskyblue;
+}
+
+.hex-small {
+    cursor: default;
+}
+
+.hex-large {
+    cursor: default;
+}

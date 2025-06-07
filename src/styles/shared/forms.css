@@ -1,0 +1,68 @@
+/* Form input styles shared across components */
+
+/* Number input styling */
+.properties-number-input {
+    width: 60px;
+    height: 32px;
+    text-align: center;
+    padding: 4px 8px;
+    font-size: 14px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    background-color: #242424;
+    color: white;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+/* Make spinners always visible for all number inputs */
+.properties-number-input::-webkit-outer-spin-button,
+.properties-number-input::-webkit-inner-spin-button {
+    -webkit-appearance: auto;
+    opacity: 1;
+}
+
+/* Current HP input with spinner on the left */
+.current-hp {
+    direction: rtl;
+    text-align: center;
+}
+
+.current-hp::-webkit-outer-spin-button,
+.current-hp::-webkit-inner-spin-button {
+    -webkit-appearance: auto;
+    opacity: 1;
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+.properties-number-input:focus {
+    outline: none;
+    border-color: lightskyblue;
+    box-shadow: 0 0 4px rgba(135, 206, 250, 0.3);
+}
+
+.properties-number-input:hover {
+    border-color: #cccccc;
+}
+
+/* Text area styling */
+.modifiers {
+    width: 270px;
+    height: auto;
+    min-height: 60px;
+    padding: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    border: 1px solid #ffffff;
+    background-color: #242424;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Text input styling */
+.new-chapter-input {
+    text-align: center;
+}

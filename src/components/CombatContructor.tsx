@@ -15,6 +15,7 @@ import ConstructorEntity from './ConstructorEntity';
 import PropertiesEditor from './PropertiesEditor';
 import { invoke } from '@tauri-apps/api/core';
 import { emit } from '@tauri-apps/api/event';
+import '../styles/components/CombatConstructor.css';
 
 function CombatConstructor() {
     const { chapterData, chapterId, entityData, battlemapId } =
