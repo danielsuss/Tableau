@@ -82,7 +82,7 @@ interface GlobalStateContextType {
     entityData: Entity[];
     setChapterData: React.Dispatch<React.SetStateAction<ChapterData>>;
     reloadChapterData: () => void;
-    reloadEntityData: (battlemapId: string) => void;
+    reloadEntityData: (battlemapId: string | undefined) => void;
     getCombatData: (chapterData: ChapterData, battlemapId: string) => Combat;
     openDisplayWindow: (state: string) => void;
 }
@@ -134,10 +134,9 @@ const GlobalStateContext = createContext<GlobalStateContextType | undefined>(
 );
 
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
-    const [chapterId, setChapterId] = useState<string>(() => {
-        // Initialize from localStorage or default to empty string
-        return localStorage.getItem('chapterId') || '';
-    });
+    const [chapterId, setChapterId] = useState<string>(
+        localStorage.getItem('chapterId') ?? ''
+    );
 
     const [chapterData, setChapterData] = useState<ChapterData>(() => {
         // Initialize from localStorage or default to an empty structure

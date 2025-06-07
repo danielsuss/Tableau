@@ -1,5 +1,8 @@
+import { invoke } from '@tauri-apps/api/core';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BattlemapController from './BattlemapController';
+import ConstructorEntity from './ConstructorEntity';
 import {
     Combat,
     useGlobalState,
@@ -9,17 +12,16 @@ import {
     useUpdateBattlemapId,
 } from './GlobalStateContext'; // Import the global state
 import HexgridController from './HexgridController';
-import { useEffect, useState } from 'react';
 import IconEditor from './IconEditor';
-import ConstructorEntity from './ConstructorEntity';
 import PropertiesEditor from './PropertiesEditor';
-import { invoke } from '@tauri-apps/api/core';
 
 function CombatConstructor() {
     const { chapterData, chapterId, entityData, battlemapId } =
         useGlobalState(); // Access chapterId from the global context
     const [editorProperties, setEditorProperties] = useState('editor');
-    const [isNarrowWidth, setIsNarrowWidth] = useState(window.innerWidth <= 800);
+    const [isNarrowWidth, setIsNarrowWidth] = useState(
+        window.innerWidth <= 800
+    );
     const { battlemap = '' } = useParams(); // Get the battlemap from the route
     const navigate = useNavigate();
     const reloadChapterData = useReloadChapterData();
@@ -28,21 +30,27 @@ function CombatConstructor() {
     const updateBattlemapId = useUpdateBattlemapId();
     const [selectedEntity, setSelectedEntity] = useState('');
 
-    const combatData: Combat = chapterData.combat.find(
-        (combat: Combat) => combat.battlemap === battlemap
-    )!;
-
     // Only reload entity data when component mounts or battlemap changes
     useEffect(() => {
         reloadEntityData(battlemap);
     }, [battlemap, reloadEntityData]);
+
+    useEffect(() => {
+        reloadChapterData();
+    }, [battlemap, reloadChapterData]);
+
+    const combatData: Combat = useMemo(() => {
+        return chapterData.combat.find(
+            (combat: Combat) => combat.battlemap === battlemap
+        )!;
+    }, [chapterData.combat, battlemap]);
 
     // Handle window resize to detect narrow width
     useEffect(() => {
         const handleResize = () => {
             const narrowWidth = window.innerWidth <= 800;
             setIsNarrowWidth(narrowWidth);
-            
+
             // Auto-switch to properties mode when narrow
             if (narrowWidth && editorProperties === 'editor') {
                 setEditorProperties('properties');
@@ -50,7 +58,7 @@ function CombatConstructor() {
         };
 
         window.addEventListener('resize', handleResize);
-        
+
         // Set initial state
         if (isNarrowWidth && editorProperties === 'editor') {
             setEditorProperties('properties');
@@ -131,9 +139,9 @@ function CombatConstructor() {
 
             <div className='entities-container'>
                 <div className='icons'>
-                    {entityData.map((entity, index) => (
+                    {entityData.map((entity) => (
                         <div
-                            key={index}
+                            key={entity.icon}
                             className={`entity-container-clicked-${
                                 selectedEntity === entity.icon
                             }`}
@@ -145,7 +153,11 @@ function CombatConstructor() {
                 </div>
 
                 <div className='rightside-container'>
-                    <div className={`editor-properties-buttons ${isNarrowWidth ? 'narrow-width' : ''}`}>
+                    <div
+                        className={`editor-properties-buttons ${
+                            isNarrowWidth ? 'narrow-width' : ''
+                        }`}
+                    >
                         <button
                             className='editor-button'
                             onClick={handleEditorButton}

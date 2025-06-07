@@ -1,20 +1,24 @@
+import { invoke } from '@tauri-apps/api/core';
+import { emit, listen } from '@tauri-apps/api/event';
+import { getCurrentWindow } from '@tauri-apps/api/window';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import { generateGridCenters } from '../hexgrid';
+import Button from './Button';
 import {
     ChapterData,
     Combat,
     Entity,
     defaultCombat,
+    useReloadEntityData,
 } from './GlobalStateContext';
-import { useEffect, useRef, useState, MouseEvent } from 'react';
-import { emit, listen } from '@tauri-apps/api/event';
-import { useParams } from 'react-router-dom';
-import { invoke } from '@tauri-apps/api/core';
 import GridEntity from './GridEntity';
-import { generateGridCenters } from '../hexgrid';
-import { getCurrentWindow } from '@tauri-apps/api/window';
-import Button from './Button';
 
-function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId }: { chapterId?: string; battlemapId?: string } = {}) {
+function CombatDisplay({
+    chapterId: propChapterId,
+    battlemapId: propBattlemapId,
+}: { chapterId?: string; battlemapId?: string } = {}) {
     // const { chapterData: initChapterData, battlemapId: initBattlemapId } = useGlobalState();
 
     const initChapterData: ChapterData = {
@@ -22,11 +26,12 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         splashes: [],
         landscapes: [],
     };
-    const { chapterid: urlChapterId, battlemapid: urlBattlemapId } = useParams();
+    const { chapterid: urlChapterId, battlemapid: urlBattlemapId } =
+        useParams();
 
     // Use props if provided, otherwise fall back to URL params
     const chapterId = propChapterId || urlChapterId;
-    const initBattlemapId = propBattlemapId || urlBattlemapId;
+    const initBattlemapId = propBattlemapId ?? urlBattlemapId;
 
     const [chapterData, setChapterData] = useState(initChapterData);
     const [battlemapId, setBattlemapId] = useState(initBattlemapId);
@@ -46,6 +51,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     const containerRef = useRef<HTMLDivElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
     const [window] = useState(getCurrentWindow());
+    const reloadEntityData = useReloadEntityData();
 
     // const disableTransform = () => setIsTransformEnabled(false);
     // const enableTransform = () => setIsTransformEnabled(true);
@@ -87,7 +93,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     }, []);
 
     useEffect(() => {
-        let newCombatData: Combat | undefined = chapterData.combat.find(
+        const newCombatData: Combat | undefined = chapterData.combat.find(
             (combat: Combat) => combat.battlemap === battlemapId
         );
         console.log('newCombatData found:', newCombatData); // Log the found data
@@ -96,7 +102,8 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         } else {
             setCombatData(defaultCombat); // Optionally handle if not found
         }
-    }, [chapterData, battlemapId, combatData]);
+        reloadEntityData(battlemapId);
+    }, [chapterData, battlemapId, combatData, reloadEntityData]);
 
     const handleEntityMouseDown = (
         event: MouseEvent<HTMLDivElement>,
