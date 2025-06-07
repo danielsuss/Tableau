@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { useGlobalState, Splash } from './GlobalStateContext';
 import '../styles/Constructor.css';
-import { emit } from '@tauri-apps/api/event';
+import { emit, listen } from '@tauri-apps/api/event';
 
 function SplashElement({
     splash,
@@ -53,6 +53,18 @@ function SplashElement({
             document.removeEventListener('contextmenu', handleClickOutside);
         };
     }, [menuVisible]);
+
+    useEffect(() => {
+        const unlistenClearAllSplashes = listen('clearAllSplashes', () => {
+            if (isSelected) {
+                setSelected(false);
+            }
+        });
+
+        return () => {
+            unlistenClearAllSplashes.then((unsub) => unsub());
+        };
+    }, [isSelected]);
 
     const handleRemove = () => {
         invoke('remove_splash', { chapterId, filename })

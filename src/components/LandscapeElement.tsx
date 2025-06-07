@@ -86,8 +86,16 @@ function LandscapeElement({
             }
         );
 
+        const unlistenLandscapeUnselected = listen(
+            'landscapeUnselected',
+            () => {
+                setSelected(false);
+            }
+        );
+
         return () => {
             unlistenLandscapeSelected.then((unsub) => unsub());
+            unlistenLandscapeUnselected.then((unsub) => unsub());
         };
     }, []);
 

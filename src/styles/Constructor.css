@@ -727,11 +727,21 @@ h1 {
     flex-direction: row;
     justify-content: right;
     align-items: center;
+    gap: 10px;
 }
 
-.show-display:hover {
+.show-display, .clear-selections {
+    padding: 8px 16px;
+    border: 1px solid #ffffff;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.show-display:hover, .clear-selections:hover {
     cursor: pointer;
     color: lightskyblue;
+    border-color: lightskyblue;
 }
 
 .test-icon {

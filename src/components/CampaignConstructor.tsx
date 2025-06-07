@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { invoke } from '@tauri-apps/api/core';
+import { emit } from '@tauri-apps/api/event';
 import LandscapeElement from './LandscapeElement';
 import SplashElement from './SplashElement';
 import CombatElement from './CombatElement';
@@ -43,6 +44,11 @@ function CampaignConstructor() {
     openDisplayWindow(`campaign-display`);
   }
 
+  const handleClearSelections = () => {
+    emit('landscapeUnselected');
+    emit('clearAllSplashes');
+  }
+
   return (
     <div className="constructor-container">
       <div className="nav-bar">
@@ -54,6 +60,7 @@ function CampaignConstructor() {
         <div className="header-container">Campaign Constructor: Chapter {chapterId}</div>
         <div className="show-display-container">
             <div className="show-display" onClick={handleShowDisplay}>Show Display</div>
+            <div className="clear-selections" onClick={handleClearSelections}>Clear</div>
         </div>
       </div>
 
