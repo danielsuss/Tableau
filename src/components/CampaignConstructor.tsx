@@ -50,7 +50,7 @@ function CampaignConstructor() {
   }
 
   return (
-    <div className="constructor-container">
+    <div className="constructor-container campaign-constructor">
       <div className="nav-bar">
         <div className="back-button-container">
           <div className="back-button" onClick={handleBackClick}>

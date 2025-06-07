@@ -1,8 +1,14 @@
 .constructor-container {
     position: relative;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Optional: Prevent scrolling if content exceeds the window */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Campaign constructor specific responsive width */
+.campaign-constructor {
+    width: 100%;
+    min-width: 320px;
 }
 
 .nav-bar {
@@ -16,6 +22,14 @@
     border-bottom: 1px solid white;
 }
 
+/* Campaign constructor specific nav styling */
+.campaign-constructor .nav-bar {
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
 .divider {
     width: 0px;
     height: 99.7%;
@@ -27,10 +41,20 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    justify-content: left;
+    justify-content: flex-start;
     align-items: flex-start;
     width: 100vw;
-    height: 80vh;
+    height: calc(100vh - 160px);
+}
+
+/* Campaign constructor specific elements width */
+.campaign-constructor .elements {
+    width: 100%;
+}
+
+/* Campaign constructor specific height adjustment for combat section */
+.campaign-constructor .elements {
+    height: calc(100vh - 200px);
 }
 
 .element-item {
@@ -75,8 +99,9 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: flex-start;
     width: 50%;
+    min-width: 150px;
     /* border:1px solid white; */
 }
 
@@ -94,8 +119,9 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: flex-start;
     width: 50%;
+    min-width: 150px;
     /* border:1px solid white; */
 }
 
@@ -104,9 +130,14 @@
     flex-wrap: wrap;
     gap: 0;
     margin: 0;
-    justify-content: left;
+    justify-content: flex-start;
     width: 100vw;
     border-top: 1px solid white;
+}
+
+/* Campaign constructor specific combatbox width */
+.campaign-constructor .combatbox {
+    width: 100%;
 }
 
 .back-button-container {
@@ -182,13 +213,18 @@ h1 {
     border: 1px solid white;
 }
 
+/* Campaign constructor specific battlemap container width */
+.campaign-constructor .battlemap-container {
+    width: 100%;
+}
+
 .battlemap {
     position: absolute;
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: flex-start;
     align-items: center;
-    width: 50vw;
+    width: 50%;
     height: 100%;
     border: 1px solid white;
 }
@@ -259,9 +295,9 @@ h1 {
     display: flex;
     flex-direction: row;
     left: 50%;
-    justify-content: left;
+    justify-content: flex-start;
     align-items: center;
-    width: 50vw;
+    width: 50%;
     height: 100%;
     border: 1px solid white;
 }
@@ -273,14 +309,19 @@ h1 {
     border: 1px solid white;
 }
 
+/* Campaign constructor specific entities container width */
+.campaign-constructor .entities-container {
+    width: 100%;
+}
+
 .icons {
     position: absolute;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: left;
+    justify-content: flex-start;
     align-items: flex-start;
-    width: 50vw;
+    width: 50%;
     /* border: 1px solid white; */
     row-gap: 20px;
 }
@@ -334,7 +375,7 @@ h1 {
     flex-direction: column;
     align-items: flex-start;
     left: 50%;
-    width: 50vw;
+    width: 50%;
     height: 100%;
     border: 1px solid white;
 }
@@ -976,4 +1017,75 @@ h1 {
 
 .element-selected {
     opacity: 0.5;
+}
+
+/* Responsive breakpoints for campaign constructor sidebar usage */
+@media (max-width: 600px) {
+    .campaign-constructor {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    .campaign-constructor .elements {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+    
+    .campaign-constructor .landscapes, 
+    .campaign-constructor .splashes {
+        width: 100%;
+        min-width: 100%;
+        justify-content: center;
+        padding: 10px 0;
+    }
+    
+    .campaign-constructor .nav-bar {
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 40px;
+        padding: 5px;
+    }
+    
+    .campaign-constructor .header-container {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .campaign-constructor .back-button-container, 
+    .campaign-constructor .show-display-container {
+        width: auto;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .campaign-constructor {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    /* Only apply combat-related responsive changes to campaign constructor */
+    .campaign-constructor .combatbox {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .campaign-constructor .element-item.landscape {
+        height: 60px;
+    }
+    
+    .campaign-constructor .element-item.add {
+        width: 100px;
+    }
+    
+    .campaign-constructor .element-item.splash {
+        width: 60px;
+    }
+    
+    .campaign-constructor {
+        min-width: 280px;
+    }
 }

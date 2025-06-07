@@ -74,7 +74,7 @@ function CombatConstructor() {
     );
 
     return (
-        <div className='constructor-container'>
+        <div className='constructor-container combat-constructor'>
             <div className='nav-bar'>
                 <div className='back-button-container'>
                     <div
