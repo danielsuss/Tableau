@@ -42,6 +42,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
 
     const [isTransformEnabled] = useState(true);
     const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
+    const [hoveredEntity, setHoveredEntity] = useState<Entity | null>(null);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
@@ -265,11 +266,82 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                                         entity
                                                     )
                                                 }
+                                                onMouseEnter={() => setHoveredEntity(entity)}
+                                                onMouseLeave={() => setHoveredEntity(null)}
                                                 onContextMenu={handleRightClick}
                                             >
                                                 <GridEntity entity={entity} />
                                             </div>
                                         ))}
+                                    {/* Health Bar Overlay Layer */}
+                                    {entityData
+                                        .filter(
+                                            (entity) => entity.visible === true
+                                        )
+                                        .map((entity, index) => {
+                                            const hp = entity.hitpoints.current / entity.hitpoints.max;
+                                            const isHovering = hoveredEntity?.icon === entity.icon;
+                                            const hpColour = (() => {
+                                                if (isHovering) {
+                                                    if (hp > 1) {
+                                                        return 'rgb(0, 255, 255)';
+                                                    } else if (hp > 0.5) {
+                                                        return 'rgb(0, 255, 0)';
+                                                    } else if (hp > 0.25) {
+                                                        return 'rgb(255, 255, 0)';
+                                                    } else {
+                                                        return 'rgb(255, 0, 0)';
+                                                    }
+                                                } else {
+                                                    if (hp > 1) {
+                                                        return 'rgba(0, 255, 255, 0.5)';
+                                                    } else if (hp > 0.5) {
+                                                        return 'rgba(0, 255, 0, 0.5)';
+                                                    } else if (hp > 0.25) {
+                                                        return 'rgba(255, 255, 0, 0.5)';
+                                                    } else {
+                                                        return 'rgba(255, 0, 0, 0.5)';
+                                                    }
+                                                }
+                                            })();
+                                            
+                                            return (
+                                                <div
+                                                    key={`healthbar-${index}`}
+                                                    className='healthbar'
+                                                    style={{
+                                                        position: 'absolute',
+                                                        left: `${
+                                                            percentageCenters.x[
+                                                                entity.location.x
+                                                            ] +
+                                                            (entity.location.y %
+                                                                2 !==
+                                                            0
+                                                                ? percentageCenters.offset
+                                                                : 0)
+                                                        }%`,
+                                                        top: `${
+                                                            percentageCenters.y[
+                                                                entity.location.y
+                                                            ] + (gridsizePercentage * 2.15 * 0.55)
+                                                        }%`,
+                                                        width: `${
+                                                            (entity.hitpoints.current / entity.hitpoints.max) *
+                                                            95 *
+                                                            (gridsizePercentage / 100)
+                                                        }%`,
+                                                        height: `${
+                                                            gridsizePercentage * 2.15 * 0.05
+                                                        }%`,
+                                                        backgroundColor: hpColour,
+                                                        transform: 'translate(-50%, 0)',
+                                                        zIndex: 1000,
+                                                        pointerEvents: 'none',
+                                                    }}
+                                                ></div>
+                                            );
+                                        })}
                                 </div>
                             )
                         ) : (

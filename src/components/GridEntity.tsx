@@ -64,6 +64,7 @@ function GridEntity({ entity }: Props) {
                     }%`,
                     backgroundColor: hpColour,
                     zIndex: 1000,
+                    opacity: 0,
                 }}
             ></div>
         </div>
