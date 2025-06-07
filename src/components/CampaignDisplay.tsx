@@ -48,6 +48,10 @@ function CampaignDisplay() {
             setCombatData(payload);
         });
 
+        const unlistenCombatUnselected = listen('combatUnselected', () => {
+            setCombatData(null);
+        });
+
         const unlistenClearAllSplashes = listen('clearAllSplashes', () => {
             setSplashes([]);
         });
@@ -58,6 +62,7 @@ function CampaignDisplay() {
             unlistenSplashSelected.then((unsub) => unsub());
             unlistenSplashUnselected.then((unsub) => unsub());
             unlistenCombatSelected.then((unsub) => unsub());
+            unlistenCombatUnselected.then((unsub) => unsub());
             unlistenClearAllSplashes.then((unsub) => unsub());
         };
     }, []);

@@ -14,6 +14,7 @@ import IconEditor from './IconEditor';
 import ConstructorEntity from './ConstructorEntity';
 import PropertiesEditor from './PropertiesEditor';
 import { invoke } from '@tauri-apps/api/core';
+import { emit } from '@tauri-apps/api/event';
 
 function CombatConstructor() {
     const { chapterData, chapterId, entityData, battlemapId } =
@@ -61,6 +62,7 @@ function CombatConstructor() {
 
     const handleBackClick = () => {
         updateBattlemapId('');
+        emit('combatUnselected');
         navigate(`/campaign-constructor`);
     };
 
