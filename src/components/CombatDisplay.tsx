@@ -43,6 +43,9 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     const [isTransformEnabled] = useState(true);
     const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
     const [hoveredEntity, setHoveredEntity] = useState<Entity | null>(null);
+    const [arrow, setArrow] = useState<{startGrid: {x: number, y: number}, endGrid: {x: number, y: number}} | null>(null);
+    const [isDrawingArrow, setIsDrawingArrow] = useState(false);
+    const [arrowStartGrid, setArrowStartGrid] = useState<{x: number, y: number} | null>(null);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
@@ -108,8 +111,145 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         setSelectedEntity(entity);
     };
 
-    const handleRightClick = () => {
-        setSelectedEntity(null);
+    const handleRightClick = (event: MouseEvent<HTMLDivElement>) => {
+        // Always prevent default context menu
+        event.preventDefault();
+    };
+
+    const handleMouseUp = (event: MouseEvent<HTMLDivElement>) => {
+        if (event.button === 2 && isDrawingArrow) { // Right mouse button up
+            // Finalize arrow
+            if (arrowStartGrid && containerRef.current) {
+                const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+                const percentX = ((event.clientX - left) / width) * 100;
+                const percentY = ((event.clientY - top) / height) * 100;
+
+                // Calculate end grid coordinates
+                const endY = (() => {
+                    let min = Infinity;
+                    let nearest = 0;
+                    for (let i = 0; i < percentageCenters.y.length; i++) {
+                        const distance = Math.abs(percentageCenters.y[i] - percentY);
+                        if (distance < min) {
+                            min = distance;
+                            nearest = i;
+                        }
+                    }
+                    return nearest;
+                })();
+
+                const endX = (() => {
+                    let min = Infinity;
+                    let nearest = 0;
+                    for (let i = 0; i < percentageCenters.x.length; i++) {
+                        const distance = Math.abs(
+                            percentageCenters.x[i] - (percentX - (endY % 2 !== 0 ? percentageCenters.offset : 0))
+                        );
+                        if (distance < min) {
+                            min = distance;
+                            nearest = i;
+                        }
+                    }
+                    return nearest;
+                })();
+
+                setArrow({ startGrid: arrowStartGrid, endGrid: { x: endX, y: endY } });
+                setIsDrawingArrow(false);
+                setArrowStartGrid(null);
+            }
+        }
+    };
+
+    const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+        if (event.button === 2) { // Right click
+            event.preventDefault();
+            
+            // If there's an existing arrow and we're not drawing, clear it
+            if (arrow && !isDrawingArrow) {
+                setArrow(null);
+                setSelectedEntity(null);
+                return;
+            }
+            
+            // Start drawing new arrow if not currently drawing
+            if (!isDrawingArrow && containerRef.current) {
+                const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+                const percentX = ((event.clientX - left) / width) * 100;
+                const percentY = ((event.clientY - top) / height) * 100;
+
+                // Calculate start grid coordinates
+                const startY = (() => {
+                    let min = Infinity;
+                    let nearest = 0;
+                    for (let i = 0; i < percentageCenters.y.length; i++) {
+                        const distance = Math.abs(percentageCenters.y[i] - percentY);
+                        if (distance < min) {
+                            min = distance;
+                            nearest = i;
+                        }
+                    }
+                    return nearest;
+                })();
+
+                const startX = (() => {
+                    let min = Infinity;
+                    let nearest = 0;
+                    for (let i = 0; i < percentageCenters.x.length; i++) {
+                        const distance = Math.abs(
+                            percentageCenters.x[i] - (percentX - (startY % 2 !== 0 ? percentageCenters.offset : 0))
+                        );
+                        if (distance < min) {
+                            min = distance;
+                            nearest = i;
+                        }
+                    }
+                    return nearest;
+                })();
+
+                setArrowStartGrid({ x: startX, y: startY });
+                setIsDrawingArrow(true);
+                setSelectedEntity(null);
+            }
+        }
+    };
+
+    const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+        if (isDrawingArrow && arrowStartGrid && containerRef.current) {
+            const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+            const percentX = ((event.clientX - left) / width) * 100;
+            const percentY = ((event.clientY - top) / height) * 100;
+
+            // Calculate current grid coordinates
+            const currentY = (() => {
+                let min = Infinity;
+                let nearest = 0;
+                for (let i = 0; i < percentageCenters.y.length; i++) {
+                    const distance = Math.abs(percentageCenters.y[i] - percentY);
+                    if (distance < min) {
+                        min = distance;
+                        nearest = i;
+                    }
+                }
+                return nearest;
+            })();
+
+            const currentX = (() => {
+                let min = Infinity;
+                let nearest = 0;
+                for (let i = 0; i < percentageCenters.x.length; i++) {
+                    const distance = Math.abs(
+                        percentageCenters.x[i] - (percentX - (currentY % 2 !== 0 ? percentageCenters.offset : 0))
+                    );
+                    if (distance < min) {
+                        min = distance;
+                        nearest = i;
+                    }
+                }
+                return nearest;
+            })();
+
+            setArrow({ startGrid: arrowStartGrid, endGrid: { x: currentX, y: currentY } });
+        }
     };
 
     const handleLeftClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -204,7 +344,16 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
 
     return (
         <div className='no-anti-alias'>
-            <TransformWrapper disabled={!isTransformEnabled}>
+            <TransformWrapper 
+                disabled={!isTransformEnabled}
+                panning={{ 
+                    disabled: false,
+                    allowLeftClickPan: false,
+                    allowRightClickPan: false,
+                    allowMiddleClickPan: true
+                }}
+                doubleClick={{ disabled: true }}
+            >
                 <TransformComponent>
                     <div className='display-window-container'>
                         <Button onClick={handleFullscreenClick}> </Button>
@@ -213,8 +362,16 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                 <div
                                     ref={containerRef}
                                     className='combat-display-container'
-                                    onMouseDown={handleLeftClick}
-                                    onContextMenu={handleRightClick}
+                                    onMouseDown={(event) => {
+                                        handleMouseDown(event);
+                                        if (event.button === 0) handleLeftClick(event);
+                                    }}
+                                    onMouseMove={handleMouseMove}
+                                    onMouseUp={handleMouseUp}
+                                    onContextMenu={(event) => {
+                                        event.preventDefault();
+                                        handleRightClick(event);
+                                    }}
                                 >
                                     <img
                                         src={`../tableau/assets/battlemaps/${combatData.battlemap}`}
@@ -342,6 +499,51 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                                 ></div>
                                             );
                                         })}
+                                    {/* Arrow Overlay */}
+                                    {arrow && (
+                                        <svg
+                                            style={{
+                                                position: 'absolute',
+                                                top: 0,
+                                                left: 0,
+                                                width: '100%',
+                                                height: '100%',
+                                                pointerEvents: 'none',
+                                                zIndex: 900,
+                                            }}
+                                        >
+                                            <defs>
+                                                <marker
+                                                    id="arrowhead"
+                                                    markerWidth="10"
+                                                    markerHeight="7"
+                                                    refX="9"
+                                                    refY="3.5"
+                                                    orient="auto"
+                                                >
+                                                    <polygon
+                                                        points="0 0, 10 3.5, 0 7"
+                                                        fill="white"
+                                                    />
+                                                </marker>
+                                            </defs>
+                                            <line
+                                                x1={`${
+                                                    percentageCenters.x[arrow.startGrid.x] +
+                                                    (arrow.startGrid.y % 2 !== 0 ? percentageCenters.offset : 0)
+                                                }%`}
+                                                y1={`${percentageCenters.y[arrow.startGrid.y]}%`}
+                                                x2={`${
+                                                    percentageCenters.x[arrow.endGrid.x] +
+                                                    (arrow.endGrid.y % 2 !== 0 ? percentageCenters.offset : 0)
+                                                }%`}
+                                                y2={`${percentageCenters.y[arrow.endGrid.y]}%`}
+                                                stroke="white"
+                                                strokeWidth="3"
+                                                markerEnd="url(#arrowhead)"
+                                            />
+                                        </svg>
+                                    )}
                                 </div>
                             )
                         ) : (
