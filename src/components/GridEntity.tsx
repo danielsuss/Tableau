@@ -54,19 +54,6 @@ function GridEntity({ entity }: Props) {
                 alt={`../tableau/assets/entities/${entity.icon}`}
                 className={`grid-entity-icon-${entity.allegiance}`}
             />
-            <div
-                className='healthbar'
-                style={{
-                    width: `${
-                        (entity.hitpoints.current / entity.hitpoints.max) *
-                        100 *
-                        0.95
-                    }%`,
-                    backgroundColor: hpColour,
-                    zIndex: 1000,
-                    opacity: 0,
-                }}
-            ></div>
         </div>
     );
 }

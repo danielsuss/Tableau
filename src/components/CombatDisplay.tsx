@@ -111,6 +111,44 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         setSelectedEntity(entity);
     };
 
+    const calculateGridCoordinates = (clientX: number, clientY: number) => {
+        if (!containerRef.current) return { x: 0, y: 0 };
+        
+        const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+        const percentX = ((clientX - left) / width) * 100;
+        const percentY = ((clientY - top) / height) * 100;
+
+        const y = (() => {
+            let min = Infinity;
+            let nearest = 0;
+            for (let i = 0; i < percentageCenters.y.length; i++) {
+                const distance = Math.abs(percentageCenters.y[i] - percentY);
+                if (distance < min) {
+                    min = distance;
+                    nearest = i;
+                }
+            }
+            return nearest;
+        })();
+
+        const x = (() => {
+            let min = Infinity;
+            let nearest = 0;
+            for (let i = 0; i < percentageCenters.x.length; i++) {
+                const distance = Math.abs(
+                    percentageCenters.x[i] - (percentX - (y % 2 !== 0 ? percentageCenters.offset : 0))
+                );
+                if (distance < min) {
+                    min = distance;
+                    nearest = i;
+                }
+            }
+            return nearest;
+        })();
+
+        return { x, y };
+    };
+
     const handleRightClick = (event: MouseEvent<HTMLDivElement>) => {
         // Always prevent default context menu
         event.preventDefault();
@@ -119,41 +157,9 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     const handleMouseUp = (event: MouseEvent<HTMLDivElement>) => {
         if (event.button === 2 && isDrawingArrow) { // Right mouse button up
             // Finalize arrow
-            if (arrowStartGrid && containerRef.current) {
-                const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-                const percentX = ((event.clientX - left) / width) * 100;
-                const percentY = ((event.clientY - top) / height) * 100;
-
-                // Calculate end grid coordinates
-                const endY = (() => {
-                    let min = Infinity;
-                    let nearest = 0;
-                    for (let i = 0; i < percentageCenters.y.length; i++) {
-                        const distance = Math.abs(percentageCenters.y[i] - percentY);
-                        if (distance < min) {
-                            min = distance;
-                            nearest = i;
-                        }
-                    }
-                    return nearest;
-                })();
-
-                const endX = (() => {
-                    let min = Infinity;
-                    let nearest = 0;
-                    for (let i = 0; i < percentageCenters.x.length; i++) {
-                        const distance = Math.abs(
-                            percentageCenters.x[i] - (percentX - (endY % 2 !== 0 ? percentageCenters.offset : 0))
-                        );
-                        if (distance < min) {
-                            min = distance;
-                            nearest = i;
-                        }
-                    }
-                    return nearest;
-                })();
-
-                setArrow({ startGrid: arrowStartGrid, endGrid: { x: endX, y: endY } });
+            if (arrowStartGrid) {
+                const endGrid = calculateGridCoordinates(event.clientX, event.clientY);
+                setArrow({ startGrid: arrowStartGrid, endGrid });
                 setIsDrawingArrow(false);
                 setArrowStartGrid(null);
             }
@@ -172,41 +178,9 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
             }
             
             // Start drawing new arrow if not currently drawing
-            if (!isDrawingArrow && containerRef.current) {
-                const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-                const percentX = ((event.clientX - left) / width) * 100;
-                const percentY = ((event.clientY - top) / height) * 100;
-
-                // Calculate start grid coordinates
-                const startY = (() => {
-                    let min = Infinity;
-                    let nearest = 0;
-                    for (let i = 0; i < percentageCenters.y.length; i++) {
-                        const distance = Math.abs(percentageCenters.y[i] - percentY);
-                        if (distance < min) {
-                            min = distance;
-                            nearest = i;
-                        }
-                    }
-                    return nearest;
-                })();
-
-                const startX = (() => {
-                    let min = Infinity;
-                    let nearest = 0;
-                    for (let i = 0; i < percentageCenters.x.length; i++) {
-                        const distance = Math.abs(
-                            percentageCenters.x[i] - (percentX - (startY % 2 !== 0 ? percentageCenters.offset : 0))
-                        );
-                        if (distance < min) {
-                            min = distance;
-                            nearest = i;
-                        }
-                    }
-                    return nearest;
-                })();
-
-                setArrowStartGrid({ x: startX, y: startY });
+            if (!isDrawingArrow) {
+                const startGrid = calculateGridCoordinates(event.clientX, event.clientY);
+                setArrowStartGrid(startGrid);
                 setIsDrawingArrow(true);
                 setSelectedEntity(null);
             }
@@ -214,41 +188,9 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     };
 
     const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-        if (isDrawingArrow && arrowStartGrid && containerRef.current) {
-            const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-            const percentX = ((event.clientX - left) / width) * 100;
-            const percentY = ((event.clientY - top) / height) * 100;
-
-            // Calculate current grid coordinates
-            const currentY = (() => {
-                let min = Infinity;
-                let nearest = 0;
-                for (let i = 0; i < percentageCenters.y.length; i++) {
-                    const distance = Math.abs(percentageCenters.y[i] - percentY);
-                    if (distance < min) {
-                        min = distance;
-                        nearest = i;
-                    }
-                }
-                return nearest;
-            })();
-
-            const currentX = (() => {
-                let min = Infinity;
-                let nearest = 0;
-                for (let i = 0; i < percentageCenters.x.length; i++) {
-                    const distance = Math.abs(
-                        percentageCenters.x[i] - (percentX - (currentY % 2 !== 0 ? percentageCenters.offset : 0))
-                    );
-                    if (distance < min) {
-                        min = distance;
-                        nearest = i;
-                    }
-                }
-                return nearest;
-            })();
-
-            setArrow({ startGrid: arrowStartGrid, endGrid: { x: currentX, y: currentY } });
+        if (isDrawingArrow && arrowStartGrid) {
+            const currentGrid = calculateGridCoordinates(event.clientX, event.clientY);
+            setArrow({ startGrid: arrowStartGrid, endGrid: currentGrid });
         }
     };
 
@@ -256,63 +198,12 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         if (event.button !== 0) return;
         if (selectedEntity !== null) {
             console.log('entity selected:', selectedEntity);
-            if (!containerRef.current) return;
-            const { left, top, width, height } =
-                containerRef.current.getBoundingClientRect();
+            
+            const newLocation = calculateGridCoordinates(event.clientX, event.clientY);
+            console.log(`Clicked at: ${newLocation.x}, ${newLocation.y}`);
 
-            // Calculate percentage-based coordinates
-            const percentX = ((event.clientX - left) / width) * 100;
-            const percentY = ((event.clientY - top) / height) * 100;
-
-            console.log(
-                `Clicked at: ${percentX.toFixed(2)}% X, ${percentY.toFixed(
-                    2
-                )}% Y`
-            );
-
-            // Calculate grid coordinates
-            const newY = (() => {
-                let min = Infinity;
-                let nearest = 0;
-
-                for (let i = 0; i < percentageCenters.y.length; i++) {
-                    const distance = Math.abs(
-                        percentageCenters.y[i] - percentY
-                    );
-                    if (distance < min) {
-                        min = distance;
-                        nearest = i;
-                    }
-                }
-
-                return nearest;
-            })();
-
-            const newX = (() => {
-                let min = Infinity;
-                let nearest = 0;
-
-                for (let i = 0; i < percentageCenters.x.length; i++) {
-                    const distance = Math.abs(
-                        percentageCenters.x[i] -
-                            (percentX -
-                                (newY % 2 !== 0 ? percentageCenters.offset : 0))
-                    );
-                    if (distance < min) {
-                        min = distance;
-                        nearest = i;
-                    }
-                }
-
-                return nearest;
-            })();
-
-            console.log(`Clicked at: ${newX}, ${newY}`);
-
-            selectedEntity.location = { x: newX, y: newY };
-
+            selectedEntity.location = newLocation;
             emit('entityLocationUpdate', selectedEntity);
-
             setSelectedEntity(null);
         }
     };
