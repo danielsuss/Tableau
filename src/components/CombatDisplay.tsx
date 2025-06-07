@@ -256,7 +256,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                                         ]
                                                     }%`,
                                                     height: `${
-                                                        gridsizePercentage * 2
+                                                        gridsizePercentage * 2.15
                                                     }%`,
                                                 }}
                                                 onMouseDown={(event) =>

@@ -372,26 +372,11 @@ pub fn create_hex_mask(width: u32, height: u32) -> DynamicImage {
 
 pub fn add_hex_stroke(image: &DynamicImage, allegiance: &str) -> DynamicImage {
     let (width, height) = image.dimensions();
+    let stroke_width = 20;
     
     // Create a larger canvas to accommodate the stroke
-    let stroke_width = 20; // Extra padding for stroke
     let new_width = width + stroke_width * 2;
     let new_height = height + stroke_width * 2;
-    let mut output = DynamicImage::new_rgba8(new_width, new_height);
-    
-    // Copy the original image to the center of the new canvas
-    for y in 0..height {
-        for x in 0..width {
-            let pixel = image.get_pixel(x, y);
-            output.put_pixel(x + stroke_width, y + stroke_width, pixel);
-        }
-    }
-    
-    let center_x = new_width as f32 / 2.0;
-    let center_y = new_height as f32 / 2.0;
-
-    // Calculate the hexagon size that fits the original image (centered in new canvas)
-    let base_size = f32::min(width as f32 / (3.0_f32.sqrt()), height as f32 / 2.0);
     
     // Determine stroke color based on allegiance
     let stroke_color = match allegiance {
@@ -399,33 +384,31 @@ pub fn add_hex_stroke(image: &DynamicImage, allegiance: &str) -> DynamicImage {
         _ => Rgba([255, 255, 255, 255]),  // White for neutral (default)
     };
     
-    // Draw multiple hexagon outlines for stroke thickness (10 pixels)
-    for stroke_layer in 1..=10 {
-        let stroke_size = base_size + stroke_layer as f32;
-        let mut hex_points = Vec::new();
-        
-        // Calculate hexagon vertices
-        for i in 0..6 {
-            let angle = std::f32::consts::PI / 6.0 + (std::f32::consts::PI / 3.0) * i as f32;
-            let x = center_x + stroke_size * angle.cos();
-            let y = center_y + stroke_size * angle.sin();
-            hex_points.push(Point::new(x as i32, y as i32));
-        }
-        
-        // Draw hexagon outline
-        for i in 0..6 {
-            let start = hex_points[i];
-            let end = hex_points[(i + 1) % 6];
-            
-            // Only draw if both points are within bounds
-            if start.x >= 0 && start.x < new_width as i32 && start.y >= 0 && start.y < new_height as i32 &&
-               end.x >= 0 && end.x < new_width as i32 && end.y >= 0 && end.y < new_height as i32 {
-                draw_line_segment_mut(&mut output, (start.x as f32, start.y as f32), (end.x as f32, end.y as f32), stroke_color);
+    // Step 1: Create enlarged stroke hexagon mask
+    let enlarged_hex_mask = create_hex_mask(new_width, new_height);
+    
+    // Step 2: Create stroke layer by filling enlarged mask with stroke color
+    let mut stroke_layer = DynamicImage::new_rgba8(new_width, new_height);
+    for y in 0..new_height {
+        for x in 0..new_width {
+            let mask_pixel = enlarged_hex_mask.get_pixel(x, y);
+            if mask_pixel[3] > 0 { // If mask pixel is not transparent
+                stroke_layer.put_pixel(x, y, stroke_color);
             }
         }
     }
     
-    output
+    // Step 3: Layer the original image on top, centered
+    for y in 0..height {
+        for x in 0..width {
+            let original_pixel = image.get_pixel(x, y);
+            if original_pixel[3] > 0 { // If original pixel is not transparent
+                stroke_layer.put_pixel(x + stroke_width, y + stroke_width, original_pixel);
+            }
+        }
+    }
+    
+    stroke_layer
 }
 
 /// Function to apply a mask to an image
