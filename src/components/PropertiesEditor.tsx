@@ -27,11 +27,14 @@ function PropertiesEditor({ entity, battlemap, setEditorProperties }: props) {
     const [entityModifiers, setEntityModifiers] = useState(entity.modifiers);
     const reloadEntityData = useReloadEntityData();
 
-    const sendEntityUpdate = () => {
-        entity.location = entityCoordinates;
-        entity.hitpoints = entityHitpoints;
-        entity.modifiers = entityModifiers;
-        invoke('update_entity', { entity: entity }).then(() => {
+    const sendEntityUpdate = (updatedEntity = null) => {
+        const entityToUpdate = updatedEntity || entity;
+        entityToUpdate.location = entityCoordinates;
+        if (!updatedEntity) {
+            entityToUpdate.hitpoints = entityHitpoints;
+        }
+        entityToUpdate.modifiers = entityModifiers;
+        invoke('update_entity', { entity: entityToUpdate }).then(() => {
             reloadEntityData(battlemap);
         });
     };
@@ -70,17 +73,27 @@ function PropertiesEditor({ entity, battlemap, setEditorProperties }: props) {
     const handleHPCurrentChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        setEntityHitpoints({
-            current: Number(event.target.value),
+        const newCurrentHP = Number(event.target.value) || 0;
+        const newHitpoints = {
+            current: newCurrentHP,
             max: entityHitpoints.max,
-        });
+        };
+        setEntityHitpoints(newHitpoints);
+        
+        const updatedEntity = { ...entity, hitpoints: newHitpoints };
+        sendEntityUpdate(updatedEntity);
     };
 
     const handleHPMaxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEntityHitpoints({
+        const newMaxHP = Number(event.target.value) || 0;
+        const newHitpoints = {
             current: entityHitpoints.current,
-            max: Number(event.target.value),
-        });
+            max: newMaxHP,
+        };
+        setEntityHitpoints(newHitpoints);
+        
+        const updatedEntity = { ...entity, hitpoints: newHitpoints };
+        sendEntityUpdate(updatedEntity);
     };
 
     const handleModifiersChange = (
@@ -119,25 +132,27 @@ function PropertiesEditor({ entity, battlemap, setEditorProperties }: props) {
                     </div> */}
                     <div className='properties-property'>
                         Hitpoints (current / max):
-                        <input
-                            type='number'
-                            className='properties-number-input'
-                            min='0'
-                            step='1'
-                            value={entityHitpoints.current}
-                            onChange={handleHPCurrentChange}
-                            onBlur={sendEntityUpdate}
-                        />
-                        {/* <p style={{font: "large"}}>/</p> */}
-                        <input
-                            type='number'
-                            className='properties-number-input'
-                            min='0'
-                            step='1'
-                            value={entityHitpoints.max}
-                            onChange={handleHPMaxChange}
-                            onBlur={sendEntityUpdate}
-                        />
+                        <div className='hitpoints-inputs'>
+                            <input
+                                type='number'
+                                className='properties-number-input current-hp'
+                                min='0'
+                                step='1'
+                                value={entityHitpoints.current}
+                                onChange={handleHPCurrentChange}
+                                placeholder="Current"
+                            />
+                            <span className='hitpoints-separator'>/</span>
+                            <input
+                                type='number'
+                                className='properties-number-input'
+                                min='0'
+                                step='1'
+                                value={entityHitpoints.max}
+                                onChange={handleHPMaxChange}
+                                placeholder="Max"
+                            />
+                        </div>
                     </div>
                     <div className='properties-property'>
                         Modifiers:

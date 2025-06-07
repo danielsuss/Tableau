@@ -743,8 +743,62 @@ h1 {
 }
 
 .properties-number-input {
-    width: 40px;
+    width: 60px;
+    height: 32px;
     text-align: center;
+    padding: 4px 8px;
+    font-size: 14px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    background-color: #242424;
+    color: white;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+/* Make spinners always visible for all number inputs */
+.properties-number-input::-webkit-outer-spin-button,
+.properties-number-input::-webkit-inner-spin-button {
+    -webkit-appearance: auto;
+    opacity: 1;
+}
+
+/* Current HP input with spinner on the left */
+.current-hp {
+    direction: rtl;
+    text-align: center;
+}
+
+.current-hp::-webkit-outer-spin-button,
+.current-hp::-webkit-inner-spin-button {
+    -webkit-appearance: auto;
+    opacity: 1;
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+.properties-number-input:focus {
+    outline: none;
+    border-color: lightskyblue;
+    box-shadow: 0 0 4px rgba(135, 206, 250, 0.3);
+}
+
+.properties-number-input:hover {
+    border-color: #cccccc;
+}
+
+.hitpoints-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hitpoints-separator {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0 4px;
 }
 
 /* input[type='number']::-webkit-inner-spin-button {
@@ -755,6 +809,15 @@ h1 {
 .modifiers {
     width: 270px;
     height: auto;
+    min-height: 60px;
+    padding: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    border: 1px solid #ffffff;
+    background-color: #242424;
+    color: white;
+    border-radius: 4px;
 }
 
 .visible-dead:hover {
@@ -1087,5 +1150,81 @@ h1 {
     
     .campaign-constructor {
         min-width: 280px;
+    }
+}
+
+/* Combat constructor responsive behavior for narrow widths */
+@media (max-width: 800px) {
+    .combat-constructor .battlemap-container {
+        display: none;
+    }
+    
+    .combat-constructor .entities-container {
+        height: calc(100vh - 40px);
+    }
+    
+    .combat-constructor .editor-properties-buttons.narrow-width {
+        display: none;
+    }
+    
+    .combat-constructor .editor-properties-container {
+        height: 100%;
+    }
+    
+    .combat-constructor .properties-top-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .combat-constructor .entity-properties-container {
+        margin-left: 0;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .combat-constructor .properties-property {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        margin: 15px;
+    }
+    
+    .combat-constructor .properties-property input {
+        margin: 4px;
+    }
+    
+    .combat-constructor .properties-number-input {
+        display: inline-block;
+        margin: 0 4px;
+        width: 60px;
+    }
+    
+    .combat-constructor .hitpoints-inputs {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .combat-constructor .hitpoints-separator {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+        margin: 0 4px;
+    }
+    
+    .combat-constructor .properties-bottom-container {
+        display: none;
+    }
+    
+    .combat-constructor .modifiers {
+        width: 100%;
+        max-width: 250px;
+        min-height: 80px;
     }
 }

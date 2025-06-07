@@ -19,6 +19,7 @@ function CombatConstructor() {
     const { chapterData, chapterId, entityData, battlemapId } =
         useGlobalState(); // Access chapterId from the global context
     const [editorProperties, setEditorProperties] = useState('editor');
+    const [isNarrowWidth, setIsNarrowWidth] = useState(window.innerWidth <= 800);
     const { battlemap = '' } = useParams(); // Get the battlemap from the route
     const navigate = useNavigate();
     const reloadChapterData = useReloadChapterData();
@@ -35,6 +36,28 @@ function CombatConstructor() {
     useEffect(() => {
         reloadEntityData(battlemap);
     }, [battlemap, reloadEntityData]);
+
+    // Handle window resize to detect narrow width
+    useEffect(() => {
+        const handleResize = () => {
+            const narrowWidth = window.innerWidth <= 800;
+            setIsNarrowWidth(narrowWidth);
+            
+            // Auto-switch to properties mode when narrow
+            if (narrowWidth && editorProperties === 'editor') {
+                setEditorProperties('properties');
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        
+        // Set initial state
+        if (isNarrowWidth && editorProperties === 'editor') {
+            setEditorProperties('properties');
+        }
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, [editorProperties, isNarrowWidth]);
 
     const handleBackClick = () => {
         updateBattlemapId('');
@@ -122,7 +145,7 @@ function CombatConstructor() {
                 </div>
 
                 <div className='rightside-container'>
-                    <div className='editor-properties-buttons'>
+                    <div className={`editor-properties-buttons ${isNarrowWidth ? 'narrow-width' : ''}`}>
                         <button
                             className='editor-button'
                             onClick={handleEditorButton}
