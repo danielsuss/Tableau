@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { useNavigate } from 'react-router-dom';
+import { emit } from '@tauri-apps/api/event';
 import { useGlobalState, useUpdateBattlemapId } from './GlobalStateContext';
 import '../styles/Constructor.css';
 
@@ -48,6 +49,7 @@ function CombatElement({ filename, reloadChapterData }: { filename: string, relo
   const handleClick = () => {
     updateBattlemapId(filename);
     reloadChapterData();
+    emit('combatSelected', { chapterId, battlemapId: filename });
     navigate(`/combat-constructor/${filename}`);
   };
 

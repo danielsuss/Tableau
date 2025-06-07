@@ -2,12 +2,14 @@ import { listen } from '@tauri-apps/api/event';
 import { useEffect, useState } from 'react';
 import { Splash } from './GlobalStateContext';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import CombatDisplay from './CombatDisplay';
 
 function CampaignDisplay() {
     const [landscape, setLandscape] = useState<String | null>(null);
     const [splashes, setSplashes] = useState<Splash[]>([]);
     const [fullscreen, setFullscreen] = useState(false);
     const [window] = useState(getCurrentWindow());
+    const [combatData, setCombatData] = useState<{ chapterId: string; battlemapId: string } | null>(null);
 
     useEffect(() => {
         const unlistenLandscapeSelected = listen(
@@ -15,6 +17,7 @@ function CampaignDisplay() {
             (event) => {
                 const filename = event.payload as string;
                 setLandscape(filename);
+                setCombatData(null); // Switch back to campaign view
             }
         );
 
@@ -29,6 +32,7 @@ function CampaignDisplay() {
         const unlistenSplashSelected = listen('splashSelected', (event) => {
             const splash = event.payload as Splash;
             setSplashes((prevSplashes) => [...prevSplashes, splash]);
+            setCombatData(null); // Switch back to campaign view
         });
 
         const unlistenSplashUnselected = listen('splashUnselected', (event) => {
@@ -39,11 +43,17 @@ function CampaignDisplay() {
             );
         });
 
+        const unlistenCombatSelected = listen('combatSelected', (event) => {
+            const payload = event.payload as { chapterId: string; battlemapId: string };
+            setCombatData(payload);
+        });
+
         return () => {
             unlistenLandscapeSelected.then((unsub) => unsub());
             unlistenLandscapeUnselected.then((unsub) => unsub());
             unlistenSplashSelected.then((unsub) => unsub());
             unlistenSplashUnselected.then((unsub) => unsub());
+            unlistenCombatSelected.then((unsub) => unsub());
         };
     }, []);
 
@@ -53,6 +63,11 @@ function CampaignDisplay() {
             .setFullscreen(!fullscreen)
             .then(() => setFullscreen(!fullscreen));
     };
+
+    // If combat is selected, show CombatDisplay
+    if (combatData) {
+        return <CombatDisplay chapterId={combatData.chapterId} battlemapId={combatData.battlemapId} />;
+    }
 
     return (
         <div

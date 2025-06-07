@@ -14,7 +14,7 @@ import { generateGridCenters } from '../hexgrid';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import Button from './Button';
 
-function CombatDisplay() {
+function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId }: { chapterId?: string; battlemapId?: string } = {}) {
     // const { chapterData: initChapterData, battlemapId: initBattlemapId } = useGlobalState();
 
     const initChapterData: ChapterData = {
@@ -22,7 +22,11 @@ function CombatDisplay() {
         splashes: [],
         landscapes: [],
     };
-    const { chapterid: chapterId, battlemapid: initBattlemapId } = useParams();
+    const { chapterid: urlChapterId, battlemapid: urlBattlemapId } = useParams();
+
+    // Use props if provided, otherwise fall back to URL params
+    const chapterId = propChapterId || urlChapterId;
+    const initBattlemapId = propBattlemapId || urlBattlemapId;
 
     const [chapterData, setChapterData] = useState(initChapterData);
     const [battlemapId, setBattlemapId] = useState(initBattlemapId);
