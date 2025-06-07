@@ -354,19 +354,11 @@ h1 {
 }
 
 .allegiance-neutral {
-    -webkit-filter: drop-shadow(2px 2px 0 white) drop-shadow(-2px 2px 0 white)
-        drop-shadow(2px -2px 0 white) drop-shadow(-2px -2px 0 white);
-
-    filter: drop-shadow(2px 2px 0 white) drop-shadow(-2px 2px 0 white)
-        drop-shadow(2px -2px 0 white) drop-shadow(-2px -2px 0 white);
+    /* Outline styling removed */
 }
 
 .allegiance-evil {
-    -webkit-filter: drop-shadow(2px 2px 0 red) drop-shadow(-2px 2px 0 red)
-        drop-shadow(2px -2px 0 red) drop-shadow(-2px -2px 0 red);
-
-    filter: drop-shadow(2px 2px 0 red) drop-shadow(-2px 2px 0 red)
-        drop-shadow(2px -2px 0 red) drop-shadow(-2px -2px 0 red);
+    /* Outline styling removed */
 }
 
 .rightside-container {
@@ -599,44 +591,11 @@ h1 {
 }
 
 .properties-icon-neutral {
-    --border-color: white;
-    --border-weight: 4px;
-    --negative-border-weight: -4px;
     height: 250px;
     margin-top: 20px;
     margin-left: 0px;
     margin-bottom: 20px;
-    -webkit-filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
-
-    filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
+    /* Outline styling removed */
 }
 
 .properties-icon-container {
@@ -652,45 +611,8 @@ h1 {
 }
 
 .properties-icon-evil {
-    --border-color: red;
-    --border-weight: 4px;
-    --negative-border-weight: -4px;
     height: 250px;
-    /* height: 200px; */
-    /* margin-top: 20px;
-    margin-left: 0px;
-    margin-bottom: 20px; */
-    -webkit-filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
-
-    filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
+    /* Outline styling removed */
 }
 
 .properties-top-bar {
@@ -896,91 +818,15 @@ h1 {
 .grid-entity-icon-evil {
     display: flex;
     height: 100%;
-    --border-color: red;
-    --border-weight: 1px;
-    --negative-border-weight: -1px;
-    /* height: 200px; */
-    /* margin-top: 20px;
-    margin-left: 0px;
-    margin-bottom: 20px; */
-    -webkit-filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
-
-    filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
-
     image-rendering: auto;
+    /* Outline styling removed */
 }
 
 .grid-entity-icon-neutral {
     display: flex;
     height: 100%;
-    --border-color: white;
-    --border-weight: 1px;
-    --negative-border-weight: -1px;
-    /* height: 200px; */
-    /* margin-top: 20px;
-    margin-left: 0px;
-    margin-bottom: 20px; */
-    -webkit-filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
-
-    filter: drop-shadow(
-            var(--border-weight) var(--border-weight) 0 var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        )
-        drop-shadow(
-            var(--negative-border-weight) var(--negative-border-weight) 0
-                var(--border-color)
-        );
-
     image-rendering: auto;
+    /* Outline styling removed */
 }
 
 .healthbar {

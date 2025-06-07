@@ -800,7 +800,7 @@ fn add_entity(
     };
 
     // Step 2: Generate the entity icon
-    if let Err(err) = utils::generate_entity_icon(&image_filename, transform_state, &icon_id) {
+    if let Err(err) = utils::generate_entity_icon(&image_filename, transform_state, &icon_id, &allegiance) {
         return Err(format!("Failed to generate entity icon: {}", err));
     }
 
