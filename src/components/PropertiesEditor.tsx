@@ -30,8 +30,10 @@ function PropertiesEditor({ entity, battlemap, setEditorProperties }: props) {
 
     const sendEntityUpdate = (updatedEntity = null) => {
         const entityToUpdate = updatedEntity || entity;
-        entityToUpdate.location = entityCoordinates;
+        // Only update location if coordinates were explicitly changed in this component
+        // Don't overwrite location when updating other properties like hitpoints
         if (!updatedEntity) {
+            entityToUpdate.location = entityCoordinates;
             entityToUpdate.hitpoints = entityHitpoints;
         }
         entityToUpdate.modifiers = entityModifiers;

@@ -47,6 +47,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     const [arrow, setArrow] = useState<{startGrid: {x: number, y: number}, endGrid: {x: number, y: number}} | null>(null);
     const [isDrawingArrow, setIsDrawingArrow] = useState(false);
     const [arrowStartGrid, setArrowStartGrid] = useState<{x: number, y: number} | null>(null);
+    const [flashingEntities, setFlashingEntities] = useState<Map<string, number>>(new Map());
 
     const containerRef = useRef<HTMLDivElement>(null);
     const [fullscreen, setFullscreen] = useState(false);
@@ -80,6 +81,24 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         const unlistenEntityData = listen('entityData', (event) => {
             // console.log('entityData received');
             const newEntityData = event.payload as Entity[];
+            
+            // Check for health changes and update flashing entities
+            if (entityData.length > 0) {
+                const updatedFlashingEntities = new Map(flashingEntities);
+                
+                newEntityData.forEach(newEntity => {
+                    const oldEntity = entityData.find(e => e.icon === newEntity.icon);
+                    if (oldEntity && 
+                        (oldEntity.hitpoints.current !== newEntity.hitpoints.current || 
+                         oldEntity.hitpoints.max !== newEntity.hitpoints.max)) {
+                        // Health changed - start/restart flashing
+                        updatedFlashingEntities.set(newEntity.icon, Date.now());
+                    }
+                });
+                
+                setFlashingEntities(updatedFlashingEntities);
+            }
+            
             // console.log(newEntityData);
             setEntityData(newEntityData);
         });
@@ -104,7 +123,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
             unlistenEntityData.then((unsub) => unsub());
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [fullscreen]);
+    }, [fullscreen, entityData, flashingEntities]);
 
     useEffect(() => {
         let newCombatData: Combat | undefined = chapterData.combat.find(
@@ -344,8 +363,15 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                         .map((entity, index) => {
                                             const hp = entity.hitpoints.current / entity.hitpoints.max;
                                             const isHovering = hoveredEntity?.icon === entity.icon;
+                                            
+                                            // Calculate flashing state directly here
+                                            const flashTimestamp = flashingEntities.get(entity.icon);
+                                            const isFlashing = flashTimestamp && (Date.now() - flashTimestamp < 3000);
+                                            const flashCycle = isFlashing ? Math.floor((Date.now() - flashTimestamp!) / 750) % 2 === 0 : false;
+                                            const showOpaque = isHovering || (isFlashing && flashCycle);
+                                            
                                             const hpColour = (() => {
-                                                if (isHovering) {
+                                                if (showOpaque) {
                                                     if (hp > 1) {
                                                         return 'rgb(0, 255, 255)';
                                                     } else if (hp > 0.5) {
