@@ -14,7 +14,7 @@ import IconEditor from './IconEditor';
 import ConstructorEntity from './ConstructorEntity';
 import PropertiesEditor from './PropertiesEditor';
 import { invoke } from '@tauri-apps/api/core';
-import { emit } from '@tauri-apps/api/event';
+import { emit, listen } from '@tauri-apps/api/event';
 import '../styles/components/CombatConstructor.css';
 
 function CombatConstructor() {
@@ -60,6 +60,22 @@ function CombatConstructor() {
 
         return () => window.removeEventListener('resize', handleResize);
     }, [editorProperties, isNarrowWidth]);
+
+    // Listen for entity selection from display window
+    useEffect(() => {
+        const unlistenEntitySelection = listen('entitySelectedInDisplay', (event) => {
+            const entityIcon = event.payload as string;
+            if (entityIcon !== '') {
+                // Only sync selection, not deselection
+                setSelectedEntity(entityIcon);
+                setEditorProperties('properties');
+            }
+        });
+
+        return () => {
+            unlistenEntitySelection.then((unsub) => unsub());
+        };
+    }, []);
 
     const handleBackClick = () => {
         updateBattlemapId('');

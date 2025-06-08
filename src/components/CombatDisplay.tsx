@@ -142,8 +142,17 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
         entity: Entity
     ) => {
         if (event.button !== 0) return;
+        event.stopPropagation(); // Prevent the event from bubbling up to handleLeftClick
         console.log('entity clicked:', entity);
-        setSelectedEntity(entity);
+        
+        // If clicking on the same entity that's already selected, deselect it
+        if (selectedEntity && selectedEntity.icon === entity.icon) {
+            setSelectedEntity(null);
+            emit('entitySelectedInDisplay', ''); // Send empty string to indicate deselection
+        } else {
+            setSelectedEntity(entity);
+            emit('entitySelectedInDisplay', entity.icon);
+        }
     };
 
     const calculateGridCoordinates = (clientX: number, clientY: number) => {
