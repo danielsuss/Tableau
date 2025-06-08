@@ -57,6 +57,20 @@ function CampaignDisplay() {
             setSplashes([]);
         });
 
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'F11') {
+                event.preventDefault();
+                event.stopPropagation();
+                handleFullscreenClick();
+            } else if (event.key === 'Escape' && fullscreen) {
+                event.preventDefault();
+                event.stopPropagation();
+                handleFullscreenClick();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
         return () => {
             unlistenLandscapeSelected.then((unsub) => unsub());
             unlistenLandscapeUnselected.then((unsub) => unsub());
@@ -65,8 +79,9 @@ function CampaignDisplay() {
             unlistenCombatSelected.then((unsub) => unsub());
             unlistenCombatUnselected.then((unsub) => unsub());
             unlistenClearAllSplashes.then((unsub) => unsub());
+            document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [fullscreen]);
 
     const handleFullscreenClick = () => {
         console.log('fullscreen', fullscreen);
@@ -83,7 +98,6 @@ function CampaignDisplay() {
     return (
         <div
             className='display-window-container'
-            onClick={handleFullscreenClick}
         >
             {landscape !== null ? (
                 landscape && (

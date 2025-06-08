@@ -84,12 +84,27 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
             setEntityData(newEntityData);
         });
 
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'F11') {
+                event.preventDefault();
+                event.stopPropagation();
+                handleFullscreenClick();
+            } else if (event.key === 'Escape' && fullscreen) {
+                event.preventDefault();
+                event.stopPropagation();
+                handleFullscreenClick();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
         return () => {
             unlistenChapterData.then((unsub) => unsub());
             unlistenBattlemapId.then((unsub) => unsub());
             unlistenEntityData.then((unsub) => unsub());
+            document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [fullscreen]);
 
     useEffect(() => {
         let newCombatData: Combat | undefined = chapterData.combat.find(
@@ -248,7 +263,6 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
             >
                 <TransformComponent>
                     <div className='display-window-container'>
-                        <Button onClick={handleFullscreenClick}> </Button>
                         {battlemapId !== '' ? (
                             combatData && (
                                 <div
