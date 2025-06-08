@@ -990,12 +990,45 @@ fn generate_hexgrid(
     overflow: usize,
     output_path: String,
 ) -> Result<String, String> {
+    // Create metadata filename alongside the PNG
+    let metadata_path = format!("{}.meta", output_path);
+    
+    // Check if both files exist and parameters match
+    if Path::new(&output_path).exists() && Path::new(&metadata_path).exists() {
+        // Read existing metadata
+        if let Ok(metadata_content) = std::fs::read_to_string(&metadata_path) {
+            if let Ok(metadata) = serde_json::from_str::<serde_json::Value>(&metadata_content) {
+                // Check if parameters match
+                if metadata["container_width"] == container_width &&
+                   metadata["container_height"] == container_height &&
+                   metadata["hex_size"] == hex_size &&
+                   metadata["overflow"] == overflow {
+                    return Ok(format!("Hex grid already exists with current parameters at '{}'.", output_path));
+                }
+            }
+        }
+    }
+
     // Generate grid centers
     let grid_centers = utils::generate_grid_centers(container_width, container_height, hex_size, overflow);
 
     // Generate the PNG
     match utils::generate_hex_grid_png(&grid_centers, hex_size, container_width, container_height, &output_path) {
-        Ok(_) => Ok(format!("Hex grid PNG generated at '{}'.", output_path)),
+        Ok(_) => {
+            // Save metadata for future parameter comparison
+            let metadata = serde_json::json!({
+                "container_width": container_width,
+                "container_height": container_height,
+                "hex_size": hex_size,
+                "overflow": overflow
+            });
+            
+            if let Err(e) = std::fs::write(&metadata_path, metadata.to_string()) {
+                eprintln!("Warning: Failed to save hexgrid metadata: {}", e);
+            }
+            
+            Ok(format!("Hex grid PNG generated at '{}'.", output_path))
+        },
         Err(e) => Err(format!("Failed to generate hex grid PNG: {}", e)),
     }
 }
