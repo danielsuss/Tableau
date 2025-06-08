@@ -40,6 +40,8 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
     const [reload, setReload] = useState(0);
 
     const [gridsizePercentage, setgridsizePercentage] = useState(1);
+    const [gridVisible, setGridVisible] = useState(true);
+    const [entitiesVisible, setEntitiesVisible] = useState(true);
 
     const [isTransformEnabled] = useState(true);
     const [selectedEntity, setSelectedEntity] = useState<Entity | null>(null);
@@ -62,7 +64,33 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                 setChapterData(data);
             }
         );
-    }, []);
+    }, [chapterId]);
+
+    // Set up toggle event listeners immediately
+    useEffect(() => {
+        console.log('Setting up toggle event listeners');
+        
+        const unlistenToggleGrid = listen('toggleGrid', () => {
+            console.log('Grid toggle event received');
+            setGridVisible(prev => {
+                console.log('Grid visibility changing from', prev, 'to', !prev);
+                return !prev;
+            });
+        });
+
+        const unlistenToggleEntities = listen('toggleEntities', () => {
+            console.log('Entities toggle event received');
+            setEntitiesVisible(prev => {
+                console.log('Entities visibility changing from', prev, 'to', !prev);
+                return !prev;
+            });
+        });
+
+        return () => {
+            unlistenToggleGrid.then((unsub) => unsub());
+            unlistenToggleEntities.then((unsub) => unsub());
+        };
+    }, []); // Empty dependency array - only run once
 
     useEffect(() => {
         const unlistenChapterData = listen('chapterData', (event) => {
@@ -312,13 +340,15 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                         className='constructor-display-battlemap'
                                         alt=''
                                     />
-                                    <div className='hexgrid-container'>
-                                        <img
-                                            src={`../tableau/assets/hexgrids/${combatData.battlemap}?reload=${reload}`}
-                                            className='hexgrid-image'
-                                        />
-                                    </div>
-                                    {entityData
+                                    {gridVisible && (
+                                        <div className='hexgrid-container'>
+                                            <img
+                                                src={`../tableau/assets/hexgrids/${combatData.battlemap}?reload=${reload}`}
+                                                className='hexgrid-image'
+                                            />
+                                        </div>
+                                    )}
+                                    {entitiesVisible && entityData
                                         .filter(
                                             (entity) => entity.visible === true
                                         )
@@ -365,7 +395,7 @@ function CombatDisplay({ chapterId: propChapterId, battlemapId: propBattlemapId 
                                             </div>
                                         ))}
                                     {/* Health Bar Overlay Layer */}
-                                    {entityData
+                                    {entitiesVisible && entityData
                                         .filter(
                                             (entity) => entity.visible === true
                                         )

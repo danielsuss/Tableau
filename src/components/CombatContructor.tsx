@@ -110,6 +110,16 @@ function CombatConstructor() {
         });
     };
 
+    const handleToggleGrid = () => {
+        console.log('Emitting toggleGrid event');
+        emit('toggleGrid');
+    };
+
+    const handleToggleEntities = () => {
+        console.log('Emitting toggleEntities event');
+        emit('toggleEntities');
+    };
+
     // Find the currently selected entity
     const selectedEntityData = entityData.find(
         (entity) => entity.icon === selectedEntity
@@ -134,6 +144,18 @@ function CombatConstructor() {
                     Combat Constructor: Chapter {chapterId}
                 </div>}
                 <div className='show-display-container'>
+                    <div
+                        className='show-display'
+                        onClick={handleToggleGrid}
+                    >
+                        Toggle Grid
+                    </div>
+                    <div
+                        className='show-display'
+                        onClick={handleToggleEntities}
+                    >
+                        Toggle Entities
+                    </div>
                     <div
                         className='show-display'
                         onClick={handleShowDisplay}
