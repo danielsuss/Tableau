@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/core';
 import { emit } from '@tauri-apps/api/event';
 import LandscapeElement from './LandscapeElement';
@@ -12,9 +12,20 @@ function CampaignConstructor() {
   const navigate = useNavigate();
   const openDisplayWindow = useOpenDisplayWindow();
   const { chapterId, chapterData, reloadChapterData } = useGlobalState(); // Access global state including chapterId
+  const [isNarrowWidth, setIsNarrowWidth] = useState(window.innerWidth <= 600);
 
   useEffect(() => {
     reloadChapterData(); // Load chapter data when the component mounts
+  }, []);
+
+  // Handle window resize to detect narrow width
+  useEffect(() => {
+    const handleResize = () => {
+      setIsNarrowWidth(window.innerWidth <= 600);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleBackClick = () => navigate(`/`);
@@ -57,7 +68,7 @@ function CampaignConstructor() {
             <img src="/assets/back.svg" alt="Back" className="back-icon" />
           </div>
         </div>
-        <div className="header-container">Campaign Constructor: Chapter {chapterId}</div>
+        {!isNarrowWidth && <div className="header-container">Campaign Constructor: Chapter {chapterId}</div>}
         <div className="show-display-container">
             <div className="show-display" onClick={handleShowDisplay}>Show Display</div>
             <div className="clear-selections" onClick={handleClearSelections}>Clear</div>

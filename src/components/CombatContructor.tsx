@@ -114,9 +114,9 @@ function CombatConstructor() {
                         />
                     </div>
                 </div>
-                <div className='header-container'>
+                {!isNarrowWidth && <div className='header-container'>
                     Combat Constructor: Chapter {chapterId}
-                </div>
+                </div>}
                 <div className='show-display-container'>
                     <div
                         className='show-display'
