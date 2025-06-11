@@ -107,11 +107,17 @@ function LandscapeElement({
                 }`}
                 onContextMenu={handleContextMenu}
             >
-                <img
-                    src={`../tableau/assets/landscapes/${filename}`}
-                    alt={filename}
-                    onClick={handleClick}
-                />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'space-between' }}>
+                    <img
+                        src={`../tableau/assets/landscapes/${filename}`}
+                        alt={filename}
+                        onClick={handleClick}
+                        style={{ maxHeight: 'calc(100% - 15px)', width: '100%', objectFit: 'contain' }}
+                    />
+                    <p style={{ fontSize: '10px', color: 'white', margin: '0', textAlign: 'center', height: '12px', lineHeight: '12px' }}>
+                        {filename.split('.').slice(0, -1).join('.')}
+                    </p>
+                </div>
             </div>
             {menuVisible && (
                 <ul

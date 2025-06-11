@@ -103,17 +103,22 @@ function SplashElement({
                 }`}
                 onContextMenu={handleContextMenu}
             >
-                <img
-                    src={`../tableau/assets/splashes/${filename}`}
-                    alt={filename}
-                    onClick={handleClick}
-                    style={{
-                        borderBottom:
-                            splash.allegiance === 'neutral'
-                                ? '2px solid white'
-                                : '2px solid red',
-                    }}
-                />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <img
+                        src={`../tableau/assets/splashes/${filename}`}
+                        alt={filename}
+                        onClick={handleClick}
+                        style={{
+                            borderBottom:
+                                splash.allegiance === 'neutral'
+                                    ? '2px solid white'
+                                    : '2px solid red',
+                        }}
+                    />
+                    <p style={{ fontSize: '10px', color: 'white', margin: '2px 0 0 0', textAlign: 'center' }}>
+                        {filename.split('.').slice(0, -1).join('.')}
+                    </p>
+                </div>
             </div>
             {menuVisible && (
                 <ul

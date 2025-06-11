@@ -77,7 +77,7 @@ function CampaignConstructor() {
 
       <div className="elements">
         <div className="landscapes">
-          {chapterData.landscapes.map((landscape, index) => (
+          {chapterData.landscapes.sort((a, b) => a.localeCompare(b)).map((landscape, index) => (
             <div className="" key={index}>
               <LandscapeElement filename={landscape} reloadChapterData={reloadChapterData} />
             </div>
@@ -93,7 +93,7 @@ function CampaignConstructor() {
         <div className="divider"></div>
 
         <div className="splashes">
-          {chapterData.splashes.map((splash, index) => (
+          {chapterData.splashes.sort((a, b) => a.image.localeCompare(b.image)).map((splash, index) => (
             <div className="" key={index}>
               <SplashElement splash={splash} reloadChapterData={reloadChapterData} />
             </div>

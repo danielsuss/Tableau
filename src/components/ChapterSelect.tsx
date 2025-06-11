@@ -117,7 +117,7 @@ function ChapterSelect() {
     <div className="chapter-select">
       <h1>Chapter Select</h1>
       <div className="chapters-grid">
-        {chapters.map((chapter, index) => (
+        {chapters.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })).map((chapter, index) => (
           <div key={index} className="chapter-item" onClick={() => handleChapterClick(chapter)} onContextMenu={(event) => handleContextMenu(event, chapter)}>
             <img src="/assets/book.svg" alt="Book icon" className="chapter-icon" />
             <p>{chapter}</p>
