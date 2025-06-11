@@ -28,7 +28,10 @@ function CampaignConstructor() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleBackClick = () => navigate(`/`);
+  const handleBackClick = () => {
+    handleClearSelections(); // Clear display window content when leaving
+    navigate(`/`);
+  };
 
   const handleAddLandscape = () => {
     if (!chapterId) return; // Make sure chapterId is available

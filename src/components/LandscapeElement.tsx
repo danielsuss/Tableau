@@ -97,7 +97,7 @@ function LandscapeElement({
             unlistenLandscapeSelected.then((unsub) => unsub());
             unlistenLandscapeUnselected.then((unsub) => unsub());
         };
-    }, []);
+    }, [chapterId, filename]);
 
     return (
         <>

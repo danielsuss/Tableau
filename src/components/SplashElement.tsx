@@ -64,7 +64,7 @@ function SplashElement({
         return () => {
             unlistenClearAllSplashes.then((unsub) => unsub());
         };
-    }, [isSelected]);
+    }, [isSelected, chapterId]);
 
     const handleRemove = () => {
         invoke('remove_splash', { chapterId, filename })
