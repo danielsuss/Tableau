@@ -66,3 +66,4 @@ Desktop.ini
 
 # Optional: Uncomment if you want to track Cargo.lock for reproducible builds
 # !Cargo.lock
+.claude/settings.local.json
