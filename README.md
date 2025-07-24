@@ -2,6 +2,8 @@
 
 A desktop campaign management application built for dungeon masters who want seamless presentation and organization for their tabletop gaming sessions.
 
+[![Tableau - D&D Campaign Management](https://img.youtube.com/vi/JStTN8jhedQ/maxresdefault.jpg)](https://youtu.be/JStTN8jhedQ?si=ZC6p4lYcS7JtLTdV)
+
 ## What it does
 
 Tableau helps you organize your campaigns and present them beautifully to your players. Create chapters, manage your assets, set up combat encounters, and present everything on a second monitor while keeping your DM tools on your main screen.
